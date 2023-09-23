@@ -20,6 +20,51 @@ public class Proveedor {
 		
 		this.productos = new Producto [0];
 	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	public String getRubro() {
+		return rubro;
+	}
+	public void setRubro(String rubro) {
+		this.rubro = rubro;
+	}
+	public String getUbicacion() {
+		return ubicacion;
+	}
+	public void setUbicacion(String ubicacion) {
+		this.ubicacion = ubicacion;
+	}
+	public String getTelefono() {
+		return telefono;
+	}
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public Producto[] getProductos() {
+		return productos;
+	}
+	public void setProductos(Producto[] productos) {
+		this.productos = productos;
+	}
+	
+	
+	
 	
 	
 	
