@@ -1,10 +1,10 @@
 package interfaz;
 
 public class Persona {
-	int id;
-	int dni;
-	String nombre;
-	String apellido;
+	private int id;
+	private int dni;
+	private String nombre;
+	private String apellido;
 	
 	
 	

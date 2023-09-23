@@ -2,8 +2,8 @@ package interfaz;
 
 public class Cliente extends Persona{
 	
-	String telefono;
-	String email;
+	private String telefono;
+	private String email;
 	
 	public Cliente(int id, int dni, String nombre, String apellido, String telefono, String email) {
 		super(id, dni, nombre, apellido);
