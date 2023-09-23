@@ -6,7 +6,7 @@
 [-] Clase Proveedor
 [-] Clase Producto 
 [ ] Clase pedido 
-[ ] Clase Contenedor
+[-] Clase Contenedor
 
 # crear constructor y metodos de cada clase 
 [-] contructor y metodo Clase Persona 
@@ -15,6 +15,6 @@
 [-] contructor y metodo Clase Proveedor
 [-] contructor y metodo Clase Producto 
 [ ] contructor y metodo Clase pedido
-[ ] contructor y metodo Clase Contenedor
+[-] contructor y metodo Clase Contenedor
 
 # Done
