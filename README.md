@@ -1,6 +1,6 @@
 # Barc.co
 # To Do
-[ ] Clase Persona 
+[-] Clase Persona 
 [ ] Clase cliente
 [ ] Clase Gerente
 [ ] Clase Proveedor
@@ -8,7 +8,7 @@
 [ ] Clase pedido 
 
 # crear constructor y metodos de cada clase 
-[ ] contructor y metodo Clase Persona 
+[-] contructor y metodo Clase Persona 
 [ ] contructor y metodo Clase cliente
 [ ] contructor y metodo Clase Gerente
 [ ] contructor y metodo Clase Proveedor
