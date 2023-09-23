@@ -1,4 +1,6 @@
 package interfaz;
+import javax.swing.JOptionPane;
+
 
 public class Main {
 
