@@ -1,4 +1,4 @@
-package interfaz;
+package logica;
 
 public class Persona {
 	private int id;

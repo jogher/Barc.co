@@ -1,4 +1,4 @@
-package interfaz;
+package logica;
 
 import javax.swing.JOptionPane;
 

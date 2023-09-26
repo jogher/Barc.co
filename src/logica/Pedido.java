@@ -1,4 +1,4 @@
-package interfaz;
+package logica;
 
 public class Pedido {
 	private int id;
