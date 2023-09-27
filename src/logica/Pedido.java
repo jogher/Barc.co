@@ -10,7 +10,7 @@ public class Pedido {
 		this.id = id;
 		this.contenedor = contenedor;
 		this.estado = estado;
-		
+
 		this.productos = new Producto [0];
 	}
 	public int getId() {
@@ -37,9 +37,7 @@ public class Pedido {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-	
-	
-	
-	
+
 
 }
+
