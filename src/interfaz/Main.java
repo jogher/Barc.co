@@ -13,7 +13,7 @@ public class Main {
 	public static void main(String[] args) {
 		String[] Opciones =
 				{
-						"Salir","Administración","Pedidos"
+						"Pedidos","Administración","Salir"
 				};
 		int  op = 0;
 		do {
@@ -26,15 +26,29 @@ public class Main {
 					
 					ArrayList <Producto> productos = new ArrayList<>();
 					
-					Producto producto1 = new Producto(1,"leche",300, 2.5, null);
+					Producto producto1 = new Producto(1,"leche",2.6, 300, null);
 					productos.add(producto1);
 					
-					Producto producto2 = new Producto(2,"azucar",100,1.5,null);
+					Producto producto2 = new Producto(2,"azucar",1.5,100,null);
 					productos.add(producto2);
 					
 					pedido1.setProductos(productos);
 					
-					interfazPedido.Menu(pedido1);
+					String pedidoInfo = "Detalles del Pedido: \n";
+					pedidoInfo += "ID del pedido " + pedido1.getId() + "\n";
+					pedidoInfo += "Estado: " + pedido1.getEstado() + "\n";
+					
+					pedidoInfo += "Productos:\n";
+				    for (Producto producto : pedido1.getProductos()) {
+				        pedidoInfo += "Nombre: " + producto.getNombre() + "\n";
+				        pedidoInfo += "Cantidad: " + producto.getTamano() + "\n";
+				        pedidoInfo += "Precio: " + producto.getPrecio() + "\n";
+				        pedidoInfo += "---------------------------\n";
+				    }
+				    JOptionPane.showMessageDialog(null, pedidoInfo, "Detalles del pedido ", JOptionPane.INFORMATION_MESSAGE);
+				    	
+
+					
 					break;
 				case 1:
 
