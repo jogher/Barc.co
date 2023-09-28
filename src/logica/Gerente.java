@@ -16,8 +16,12 @@ public class Gerente extends Persona {
 		
 	}
 	
-	public void hacerPedido() {
+	public void hacerPedido(Pedido pedido) {
 		JOptionPane.showMessageDialog(null, "El Gerente " + getNombre() +  " ha hecho un pedido ");
+	}
+	
+	public void seleccionarContenedor(Contenedor contenedor) {
+		JOptionPane.showMessageDialog(null, "El Gerente " + getNombre() + "ha seleccionado el contenidor");
 	}
 	
 	
