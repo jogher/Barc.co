@@ -1,8 +1,11 @@
 package interfaz;
+import java.util.ArrayList;
+
 import javax.swing.JOptionPane;
 
 import logica.Producto;
 import logica.Pedido;
+import logica.Cliente;
 
 
 public class Main {
@@ -10,7 +13,7 @@ public class Main {
 	public static void main(String[] args) {
 		String[] Opciones =
 				{
-						"Pedidos","Administración","Salir"
+						"Salir","Administración","Pedidos"
 				};
 		int  op = 0;
 		do {
@@ -18,14 +21,19 @@ public class Main {
 
 			switch (op) {
 				case 0:
-					PatanllaPedido interfazPedido = new PatanllaPedido();
+					PantallaPedidos interfazPedido = new PantallaPedidos();
 					Pedido pedido1 = new Pedido(1, null, "en proceso");
-					Producto producto = new  Producto(1,"leche",300, 2.5, null);
-					pedido1.getProdcutos().add(Producto);
 					
-					producto = new Producto(2,"azucar",100,1.5,null);
-					pedido1.getProductos().add(producto);
-					nueva.setPrecio(nueva.determinarPrecio());
+					ArrayList <Producto> productos = new ArrayList<>();
+					
+					Producto producto1 = new Producto(1,"leche",300, 2.5, null);
+					productos.add(producto1);
+					
+					Producto producto2 = new Producto(2,"azucar",100,1.5,null);
+					productos.add(producto2);
+					
+					pedido1.setProductos(productos);
+					
 					interfazPedido.Menu(pedido1);
 					break;
 				case 1:
