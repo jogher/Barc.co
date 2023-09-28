@@ -3,10 +3,10 @@ package logica;
 public class Producto {
 	private int id;
 	private String nombre;
-	private int tamano;
+	private double tamano;
 	private double precio;
 	private  Proveedor proveedor;
-	public Producto(int id, String nombre, int tamano, double precio, Proveedor proveedor) {
+	public Producto(int id, String nombre, double tamano, double precio, Proveedor proveedor) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -26,7 +26,7 @@ public class Producto {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public int getTamano() {
+	public double getTamano() {
 		return tamano;
 	}
 	public void setTamano(int tamano) {

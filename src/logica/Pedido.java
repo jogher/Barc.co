@@ -1,8 +1,10 @@
 package logica;
 
+import java.util.ArrayList;
+
 public class Pedido {
 	private int id;
-	private Producto[] productos;
+	private ArrayList<Producto> productos;
 	private Contenedor contenedor;
 	private String estado;
 	public Pedido(int id, Contenedor contenedor, String estado) {
@@ -11,7 +13,7 @@ public class Pedido {
 		this.contenedor = contenedor;
 		this.estado = estado;
 
-		this.productos = new Producto [0];
+	this.productos = new ArrayList<>();
 	}
 	public int getId() {
 		return id;
@@ -19,10 +21,10 @@ public class Pedido {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public Producto[] getProductos() {
+	public ArrayList<Producto> getProductos() {
 		return productos;
 	}
-	public void setProductos(Producto[] productos) {
+	public void setProductos(ArrayList<Producto> productos) {
 		this.productos = productos;
 	}
 	public Contenedor getContenedor() {
