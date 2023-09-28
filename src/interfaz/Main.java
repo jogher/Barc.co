@@ -26,32 +26,7 @@ public class Main {
 			switch (op) {
 				case 0:
 					PantallaPedidos interfazPedido = new PantallaPedidos();
-					Pedido pedido1 = new Pedido(1, null, "en proceso");
-					
-					ArrayList <Producto> productos = new ArrayList<>();
-					
-					Producto producto1 = new Producto(1,"leche",2.6, 300, null);
-					productos.add(producto1);
-					
-					Producto producto2 = new Producto(2,"azucar",1.5,100,null);
-					productos.add(producto2);
-					
-					pedido1.setProductos(productos);
-					
-					String pedidoInfo = "Detalles del Pedido: \n";
-					pedidoInfo += "ID del pedido " + pedido1.getId() + "\n";
-					pedidoInfo += "Estado: " + pedido1.getEstado() + "\n";
-					
-					pedidoInfo += "Productos:\n";
-				    for (Producto producto : pedido1.getProductos()) {
-				        pedidoInfo += "Nombre: " + producto.getNombre() + "\n";
-				        pedidoInfo += "Cantidad: " + producto.getTamano() + "\n";
-				        pedidoInfo += "Precio: " + producto.getPrecio() + "\n";
-				        pedidoInfo += "---------------------------\n";
-				    }
-				    JOptionPane.showMessageDialog(null, pedidoInfo, "Detalles del pedido ", JOptionPane.INFORMATION_MESSAGE);
-				    	
-
+					interfazPedido.Menu();
 					
 					break;
 				case 1:

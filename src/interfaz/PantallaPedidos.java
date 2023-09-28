@@ -1,12 +1,15 @@
 package interfaz;
 
+import java.util.ArrayList;
+
 import javax.swing.JOptionPane;
 
 import logica.Pedido;
+import logica.Producto;
 
 public class PantallaPedidos {
 
-	public void Menu(Pedido pedido) {
+	public void Menu() {
 		
 		String[] Opciones=
 			{
@@ -21,8 +24,33 @@ public class PantallaPedidos {
 						+ "Se debe ingresar(Productos)");
 				break;
 			case 1:
-				JOptionPane.showMessageDialog(null, "Seguimiento de Pedidos \n"
-						+ "Seleccione un pedido");
+				Pedido pedido1 = new Pedido(1, null, "en proceso");
+				
+				ArrayList <Producto> productos = new ArrayList<>();
+				
+				Producto producto1 = new Producto(1,"leche",2.6, 300, null);
+				productos.add(producto1);
+				
+				Producto producto2 = new Producto(2,"azucar",1.5,100,null);
+				productos.add(producto2);
+				
+				pedido1.setProductos(productos);
+				
+				String pedidoInfo = "Detalles del Pedido: \n";
+				pedidoInfo += "ID del pedido " + pedido1.getId() + "\n";
+				pedidoInfo += "Estado: " + pedido1.getEstado() + "\n";
+				
+				pedidoInfo += "Productos:\n";
+			    for (Producto producto : pedido1.getProductos()) {
+			        pedidoInfo += "Nombre: " + producto.getNombre() + "\n";
+			        pedidoInfo += "Cantidad: " + producto.getTamano() + "\n";
+			        pedidoInfo += "Precio: " + producto.getPrecio() + "\n";
+			        pedidoInfo += "---------------------------\n";
+			    }
+			    JOptionPane.showMessageDialog(null, pedidoInfo, "Detalles del pedido ", JOptionPane.INFORMATION_MESSAGE);
+			    	
+
+				
 				break;
 			case 2:
 				JOptionPane.showMessageDialog(null, "Cancelar Pedido \n"
