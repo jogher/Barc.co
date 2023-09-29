@@ -66,7 +66,9 @@ public class Main {
 				}
 				
 				if(contenedorSele != null) {
+					JOptionPane.showMessageDialog(null, contenedorSele);
 					gerente.seleccionarContenedor(contenedorSele);
+					
 				}
 
 
