@@ -33,6 +33,10 @@ public class Contenedor {
 	public void setColor(String color) {
 		this.color = color;
 	}
+	@Override
+	public String toString() {
+		return "Contenedor [id=" + id + ", capacidad=" + capacidad + ", color=" + color + "]";
+	}
 	
 	
 	
