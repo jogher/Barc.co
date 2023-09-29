@@ -28,10 +28,10 @@ public class PantallaPedidos {
 				
 				ArrayList <Producto> productos = new ArrayList<>();
 				
-				Producto producto1 = new Producto(1,"leche",2.6, 300, null);
+				Producto producto1 = new Producto(1,"leche",2.6, 300,2, null);
 				productos.add(producto1);
 				
-				Producto producto2 = new Producto(2,"azucar",1.5,100,null);
+				Producto producto2 = new Producto(2,"azucar",1.5,100,3,null);
 				productos.add(producto2);
 				
 				pedido1.setProductos(productos);
