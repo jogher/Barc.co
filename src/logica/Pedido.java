@@ -39,7 +39,12 @@ public class Pedido {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
+	@Override
+	public String toString() {
+		return "Pedido [id=" + id + ", productos=" + productos + ", contenedor=" + contenedor + ", estado=" + estado
+				+ "]";
+	}
 
 
 }
-
+ 
