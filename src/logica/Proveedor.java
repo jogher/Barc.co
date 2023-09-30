@@ -1,5 +1,7 @@
 package logica;
 
+import java.util.ArrayList;
+
 public class Proveedor {
 	private int id;
 	private String nombre; 
@@ -63,7 +65,14 @@ public class Proveedor {
 		this.productos = productos;
 	}
 	
-	
+	public void agregarStock(int id, int stock, ArrayList <Producto> producto) {
+		for (int i = 0; i < productos.length; i++) {
+			Producto produ = productos[i];
+			if (id==produ.getId()) {
+				produ.setStock(stock);
+			}
+		}
+	}
 	
 	
 	
