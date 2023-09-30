@@ -5,6 +5,8 @@ public class Contenedor {
 	private int id;
 	private int capacidad;
 	private String color;
+	private Pedido pedido; // esto para almacenar el pedido en el contenedor 	
+	
 	public Contenedor(int id, int capacidad, String color) {
 		super();
 		this.id = id;
@@ -33,10 +35,20 @@ public class Contenedor {
 	public void setColor(String color) {
 		this.color = color;
 	}
+	
+	// el metodo para agregar el pedido al contenedor 
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
+	}
 	@Override
 	public String toString() {
 		return "Contenedor [id=" + id + ", capacidad=" + capacidad + ", color=" + color + "]";
 	}
+	public Object getPedido() {
+		
+		return pedido;
+	}
+	
 	
 	
 	

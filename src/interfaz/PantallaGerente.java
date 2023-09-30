@@ -18,7 +18,7 @@ public class PantallaGerente {
 		Contenedor cont2 = new Contenedor(2,1500,"Amarillo");
 		Contenedor cont3 = new Contenedor (3,2000,"Verde");
 		
-		// seleccion de contenedores 
+		// opciones de contenedores 
 		
 		String [] opcionContenedores = {
 				"Contenedor 1 - azul - 1000",	
@@ -28,7 +28,7 @@ public class PantallaGerente {
 		};
 		int op = 0;
 		do {
-			// opciones de contenedores
+			// seleccion de contenedores
 			op= JOptionPane.showOptionDialog(null, "Menu Contenedores", null, 0, 0, null, opcionContenedores, opcionContenedores[0]);
 			Contenedor contSeleccionado = null;
 			switch (op) {
@@ -52,6 +52,8 @@ public class PantallaGerente {
 			if (contSeleccionado != null) {
 				// el gerente ha seleccioando el contenedor 
 				JOptionPane.showMessageDialog(null,"El Gerente " + gerente1.getNombre() + " ha Seleccionado el :\n" +  contSeleccionado);
+				
+			    
 			}
 		} while (op !=3);
 		
