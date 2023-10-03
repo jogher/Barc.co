@@ -18,6 +18,7 @@ public class Proveedor {
 		this.ubicacion = ubicacion;
 		this.telefono = telefono;
 		this.email = email;
+		this.productos = new ArrayList<Producto>();
 	}
 	public int getId() {
 		return id;
