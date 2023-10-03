@@ -16,8 +16,8 @@ public class Main {
 				{
 						"Pedidos",
 						"Administración",
+						"Proveedor",
 						"Salir"
-						
 				};
 		int  op = 0;
 		do {
@@ -74,13 +74,19 @@ public class Main {
 
 					break;
 				case 2:
-
+					PantallaProveedor interfazProveedor = new PantallaProveedor();
+					interfazProveedor.Menu();
 					break;
+
+				case 3:
+					// código para salir
+					break;
+
 				default:
 					break;
 			}
 
-		} while (op!=2);
+		} while (op != 3);
 
 	}
 
