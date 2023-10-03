@@ -16,8 +16,8 @@ public class Main {
 				{
 						"Pedidos",
 						"Administración",
+						"Proveedor",
 						"Salir"
-						
 				};
 		int  op = 0;
 		do {
