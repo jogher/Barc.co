@@ -9,7 +9,7 @@ public class Proveedor {
 	private String ubicacion;
 	private String telefono; 
 	private String email;
-	private Producto[] productos;
+	private ArrayList<Producto> productos;
 	public Proveedor(int id, String nombre, String rubro, String ubicacion, String telefono, String email) {
 		super();
 		this.id = id;
@@ -18,9 +18,6 @@ public class Proveedor {
 		this.ubicacion = ubicacion;
 		this.telefono = telefono;
 		this.email = email;
-		
-		
-		this.productos = new Producto [0];
 	}
 	public int getId() {
 		return id;
@@ -58,21 +55,25 @@ public class Proveedor {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public Producto[] getProductos() {
-		return productos;
-	}
-	public void setProductos(Producto[] productos) {
-		this.productos = productos;
-	}
+	 public ArrayList<Producto> getProductos() {
+		    return productos; 
+		  }
+	 
+	 public void addProducto(Producto producto) {
+		    getProductos().add(producto);
+		    producto.setProveedor(this); 
+		  }
+
+
 	
-	public void agregarStock(int id, int stock, ArrayList <Producto> producto) {
-		for (int i = 0; i < productos.length; i++) {
-			Producto produ = productos[i];
-			if (id==produ.getId()) {
-				produ.setStock(stock);
-			}
-		}
-	}
+	//public void agregarStock(int id, int stock, ArrayList <Producto> producto) {
+		//for (int i = 0; i < productos.length; i++) {
+			//Producto produ = productos[i];
+			//if (id==produ.getId()) {
+				//produ.setStock(stock);
+			//}
+		//}
+	//}
 	
 	
 	
