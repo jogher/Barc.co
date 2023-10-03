@@ -74,13 +74,19 @@ public class Main {
 
 					break;
 				case 2:
-
+					PantallaProveedor interfazProveedor = new PantallaProveedor();
+					interfazProveedor.Menu();
 					break;
+
+				case 3:
+					// código para salir
+					break;
+
 				default:
 					break;
 			}
 
-		} while (op!=2);
+		} while (op != 3);
 
 	}
 
