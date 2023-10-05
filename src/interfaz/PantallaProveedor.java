@@ -27,6 +27,14 @@ public class PantallaProveedor {
 				stock_search = Integer.parseInt(JOptionPane.showInputDialog("Ingrese cantidad de productos que agrega al stock:"));
 				
 				/*Metodo de proveedor*/
+				
+				for (int i = 0; i < productos.length; i++) {
+					Producto produ = productos[i];
+					if (id_search==produ.getId()) {
+						produ.setStock(stock_search);
+					}
+				}
+				
 				break;
 			case 1:
 		          // Pedir datos para nuevo producto
@@ -69,6 +77,6 @@ public class PantallaProveedor {
 			default:
 				break;
 			}
-		} while (op != 3);
+		} while (op != 4);
 	}
 }
