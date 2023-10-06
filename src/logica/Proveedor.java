@@ -64,23 +64,4 @@ public class Proveedor {
 		    getProductos().add(producto);
 		    producto.setProveedor(this); 
 		  }
-
-
-	
-	//public void agregarStock(int id, int stock, ArrayList <Producto> producto) {
-		//for (int i = 0; i < productos.length; i++) {
-			//Producto produ = productos[i];
-			//if (id==produ.getId()) {
-				//produ.setStock(stock);
-			//}
-		//}
-	//}
-	
-	
-	
-	
-	
-
-	
-
 }

@@ -15,7 +15,7 @@ public class Main {
 		String[] Opciones =
 				{
 						"Pedidos",
-						"Administración",
+						"Gerente",
 						"Proveedor",
 						"Salir"
 				};
@@ -30,6 +30,9 @@ public class Main {
 					
 					break;
 				case 1:
+					
+					PantallaGerente interfazGerente = new PantallaGerente ();
+					
 					Gerente gerente = new Gerente(1,30445876, "Carlos", "Ramiez");
 					Contenedor contenedor1 = new Contenedor(1, 1000, "Azul");
 					Contenedor contenedor2 = new Contenedor(2, 1500, "Amarillo");

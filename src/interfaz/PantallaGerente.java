@@ -20,26 +20,51 @@ public class PantallaGerente {
 		
 		// opciones de contenedores 
 		
-		String [] opcionContenedores = {
-				"Contenedor 1 - azul - 1000",	
-				"Contenedor 2 - Amarillo - 1500",
-				"Contenedor 3 - Verde - 2000",
-				"salir"
+		String [] Opciones = {
+				"Asignar contenedor",	
+				"",
+				"",
+				"Salir"
 		};
 		int op = 0;
 		do {
 			// seleccion de contenedores
-			op= JOptionPane.showOptionDialog(null, "Menu Contenedores", null, 0, 0, null, opcionContenedores, opcionContenedores[0]);
-			Contenedor contSeleccionado = null;
+			op= JOptionPane.showOptionDialog(null, "Menu Contenedores", null, 0, 0, null, Opciones, Opciones[0]);
+			
 			switch (op) {
 				case 0:
-					contSeleccionado = cont1;
+					String [] opcionContenedores = {
+							"Contenedor 1 - Azul",
+							"Contenedor 2 - Amarillo",
+							"Contenedor 3 - Verde"
+						};
+					int opC = 0;
+					do {
+						opC= JOptionPane.showOptionDialog(null, "Menu Contenedores", null, 0, 0, null, opcionContenedores, opcionContenedores[0]);
+					
+						Contenedor contSeleccionado = null;
+						switch (opC) {
+							case 0:
+								contSeleccionado = cont1;
+								break;
+							case 1: 
+								contSeleccionado = cont2;
+								break;
+							case 2:
+								contSeleccionado = cont3;
+							break;
+						}
+						if (contSeleccionado != null) {
+							// el gerente ha seleccioando el contenedor 
+							JOptionPane.showMessageDialog(null,"El Gerente " + gerente1.getNombre() + " ha Seleccionado el :\n" +  contSeleccionado);    
+						}
+					} while (opC!=3);
 					break;
 				case 1: 
-					contSeleccionado = cont2;
+					
 					break;
 				case 2:
-					contSeleccionado = cont3;
+					
 					break;
 				case 3: 
 					JOptionPane.showMessageDialog(null, "Salir");
@@ -49,12 +74,7 @@ public class PantallaGerente {
 					
 			}
 			
-			if (contSeleccionado != null) {
-				// el gerente ha seleccioando el contenedor 
-				JOptionPane.showMessageDialog(null,"El Gerente " + gerente1.getNombre() + " ha Seleccionado el :\n" +  contSeleccionado);
-				
-			    
-			}
+			
 		} while (op !=3);
 		
 		
