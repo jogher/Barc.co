@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 import logica.Pedido;
 import logica.Producto;
 
-public class PantallaPedidos {
+public class PantallaCliente {
 
 	public void Menu() {
 		
