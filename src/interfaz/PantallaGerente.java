@@ -21,9 +21,7 @@ public class PantallaGerente {
 		// opciones de contenedores 
 		
 		String [] Opciones = {
-				"Asignar contenedor",	
-				"",
-				"",
+				"Asignar contenedor",
 				"Salir"
 		};
 		int op = 0;
@@ -34,9 +32,10 @@ public class PantallaGerente {
 			switch (op) {
 				case 0:
 					String [] opcionContenedores = {
-							"Contenedor 1 - Azul",
-							"Contenedor 2 - Amarillo",
-							"Contenedor 3 - Verde"
+							"Contenedor 1 - Azul" + " Capacidad: " + cont1.getCapacidad(),
+							"Contenedor 2 - Amarillo" + " Capacidad: " + cont2.getCapacidad(),
+							"Contenedor 3 - Verde" + " Capacidad: " + cont3.getCapacidad(),
+							"Salir"
 						};
 					int opC = 0;
 					do {
@@ -53,6 +52,10 @@ public class PantallaGerente {
 							case 2:
 								contSeleccionado = cont3;
 							break;
+							case 3:
+								
+							break;
+							
 						}
 						if (contSeleccionado != null) {
 							// el gerente ha seleccioando el contenedor 
@@ -83,4 +86,4 @@ public class PantallaGerente {
 
 	}
 
-}
+} 
