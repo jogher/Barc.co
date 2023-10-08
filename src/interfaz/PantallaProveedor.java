@@ -28,12 +28,17 @@ public class PantallaProveedor {
 				
 				/*Metodo de proveedor*/
 				
-				for (int i = 0; i < productos.length; i++) {
-					Producto produ = productos[i];
-					if (id_search==produ.getId()) {
-						produ.setStock(stock_search);
-					}
-				}
+				ArrayList<Producto> productos_1 = proveedor1.getProductos();
+//Se buscan los productos del proveedor, si el id ingresado coincide con el id de un producto en el ArrayList de productos del proveedor se le agrega el stock ingresado al stock que ya se tenía (tecnicamente, tambien puede ser usado para restar stock)
+				  for(Producto p : productos_1) {
+				    if(p.getId() == id_search) {
+				    	int updated_stock = p.getStock() + stock_search;
+				      p.setStock(updated_stock);
+				    }
+				    else {
+				        JOptionPane.showMessageDialog(null, "No se ha podido encontrar ningún producto con esa ID"); 
+				      }
+				  }
 				
 				break;
 			case 1:

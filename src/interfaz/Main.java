@@ -77,7 +77,7 @@ public class Main {
 		
 		String[] Opciones =
 				{
-						"Pedidos",
+						"Cliente",
 						"Gerente",
 						"Proveedor",
 						"Salir"
@@ -88,8 +88,8 @@ public class Main {
 
 			switch (op) {
 				case 0:
-					PantallaPedidos interfazPedido = new PantallaPedidos();
-					interfazPedido.Menu();
+					PantallaCliente interfazCliente = new PantallaCliente();
+					interfazCliente.Menu();
 					
 					break;
 				case 1:
