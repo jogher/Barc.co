@@ -1,5 +1,7 @@
 package logica;
 
+import java.util.ArrayList;
+
 public class Contenedor {
 	
 	private int id;
@@ -48,6 +50,16 @@ public class Contenedor {
 		
 		return pedido;
 	}
+	public void agregarProductos(ArrayList<Producto> productos) {
+		for (Producto producto : productos) {
+	       
+	        System.out.println("Producto agregado al contenedor con ID: " + producto.getId() + producto.getNombre());
+	    }
+		
+		
+	}
+	
+	
 	
 	
 	

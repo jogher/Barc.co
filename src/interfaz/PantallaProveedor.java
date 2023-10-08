@@ -8,7 +8,12 @@ import logica.Producto;
 import logica.Proveedor;
 
 public class PantallaProveedor {
+	
 	Proveedor proveedor1 = new Proveedor(1, "Proveedor 1", "Alimentos", "Calle Falsa 123", "+541144444444", "proveedor1@email.com");
+	public Proveedor getProveedor() {
+	    return proveedor1;
+	}
+
 	public void Menu() {
 		
 
@@ -50,6 +55,7 @@ public class PantallaProveedor {
 		          int stock = Integer.parseInt(JOptionPane.showInputDialog("Stock inicial:"));
 
 		          Producto p = new Producto(id, nombre, tamano, precio, stock, proveedor1);
+		          JOptionPane.showMessageDialog(null, "Productos agregados correctamente al proveedor.");
 
 		          // Agregar el nuevo producto al proveedor
 		          proveedor1.addProducto(p);
