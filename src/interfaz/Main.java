@@ -19,7 +19,8 @@ import java.sql.SQLException;
 public class Main {
 
 	public static void main(String[] args) {
-//usuario es "admin" y la contraseña es "pass"
+		
+		//usuario es "admin" y la contraseña es "pass"
 		boolean loginValido = false;
 
 		while(!loginValido) {

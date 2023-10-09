@@ -6,7 +6,7 @@ import javax.swing.JOptionPane;
 
 public class Conexion {
 
-	private Connection con ;
+	 Connection con ;
 	
 	public Connection conectar() {
 		
@@ -14,7 +14,7 @@ public class Conexion {
 			Class.forName("com.mysql.jdbc.Driver");
 			
 			
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/barco","root","");
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3307/Barco","root","");
 			//JOptionPane.showMessageDialog(null, "se conecto");
 		} catch (Exception e) {
 	
