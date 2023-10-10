@@ -11,8 +11,19 @@ public class PantallaGerente {
 
 	public static void main(String[] args) {
 		
-		Gerente gerente1 = new Gerente(1, 30445876, "Carlos", "Ramirez");
+
+		Gerente gerente1 = new Gerente(1, 30445876, "Carlos", "Ramirez", null, null);
 		 
+
+	
+		    
+		    // Resto de tu lógica para la pantalla del gerente...
+			
+
+		
+	
+			 
+
 		//Los contenedores disponibles 
 		Contenedor cont1 = new Contenedor(1,1000,"Azul");
 		Contenedor cont2 = new Contenedor(2,1500,"Amarillo");

@@ -97,7 +97,7 @@ public class Main {
 					
 					PantallaGerente interfazGerente = new PantallaGerente ();
 					
-					Gerente gerente = new Gerente(1,30445876, "Carlos", "Ramiez");
+					Gerente gerente = new Gerente(1,30445876, "Carlos", "Ramiez", null, null);
 					Contenedor contenedor1 = new Contenedor(1, 1000, "Azul");
 					Contenedor contenedor2 = new Contenedor(2, 1500, "Amarillo");
 					Contenedor contenedor3 = new Contenedor(3, 5000, "Verde");

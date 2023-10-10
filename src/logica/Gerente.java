@@ -6,8 +6,8 @@ public class Gerente extends Persona {
 
 	
 
-	public Gerente(int id, int dni, String nombre, String apellido) {
-		super(id, dni, nombre, apellido);
+	public Gerente(int id, int dni, String nombre, String apellido, String usuario, String contrasena) {
+		super(id, dni, nombre, apellido, usuario, contrasena);
 		
 	}
 	

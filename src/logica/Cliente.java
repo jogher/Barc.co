@@ -7,8 +7,8 @@ public class Cliente extends Persona{
 	private String telefono;
 	private String email;
 	/*Constructores*/
-	public Cliente(int id, int dni, String nombre, String apellido, String telefono, String email) {
-		super(id, dni, nombre, apellido);
+	public Cliente(int id, int dni, String nombre, String apellido, String telefono, String email, String usuario, String contrasena) {
+		super(id, dni, nombre, apellido, usuario, contrasena);
 		this.telefono = telefono;
 		this.email = email;
 	}
