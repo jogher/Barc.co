@@ -8,7 +8,12 @@ import logica.Producto;
 import logica.Proveedor;
 
 public class PantallaProveedor {
+	
 	Proveedor proveedor1 = new Proveedor(1, "Proveedor 1", "Alimentos", "Calle Falsa 123", "+541144444444", "proveedor1@email.com");
+	public Proveedor getProveedor() {
+	    return proveedor1;
+	}
+
 	public void Menu() {
 		
 
@@ -28,12 +33,17 @@ public class PantallaProveedor {
 				
 				/*Metodo de proveedor*/
 				
-				for (int i = 0; i < productos.length; i++) {
-					Producto produ = productos[i];
-					if (id_search==produ.getId()) {
-						produ.setStock(stock_search);
-					}
-				}
+				ArrayList<Producto> productos_1 = proveedor1.getProductos();
+//Se buscan los productos del proveedor, si el id ingresado coincide con el id de un producto en el ArrayList de productos del proveedor se le agrega el stock ingresado al stock que ya se tenía (tecnicamente, tambien puede ser usado para restar stock)
+				  for(Producto p : productos_1) {
+				    if(p.getId() == id_search) {
+				    	int updated_stock = p.getStock() + stock_search;
+				      p.setStock(updated_stock);
+				    }
+				    else {
+				        JOptionPane.showMessageDialog(null, "No se ha podido encontrar ningún producto con esa ID"); 
+				      }
+				  }
 				
 				break;
 			case 1:
@@ -45,6 +55,7 @@ public class PantallaProveedor {
 		          int stock = Integer.parseInt(JOptionPane.showInputDialog("Stock inicial:"));
 
 		          Producto p = new Producto(id, nombre, tamano, precio, stock, proveedor1);
+		          JOptionPane.showMessageDialog(null, "Productos agregados correctamente al proveedor.");
 
 		          // Agregar el nuevo producto al proveedor
 		          proveedor1.addProducto(p);

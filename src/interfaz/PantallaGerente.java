@@ -1,16 +1,22 @@
 package interfaz;
 
 import logica.Gerente;
+import logica.Producto;
+import java.util.ArrayList;
+import logica.Proveedor;
+import logica.Contenedor;
 
 import javax.swing.JOptionPane;
 
-import logica.Contenedor;
+
 import logica.Pedido;
 
 public class PantallaGerente {
 
+
 	public static void main(String[] args) {
 		
+
 
 		Gerente gerente1 = new Gerente(1, 30445876, "Carlos", "Ramirez", null, null);
 		 
@@ -18,12 +24,8 @@ public class PantallaGerente {
 	
 		    
 		    // Resto de tu lógica para la pantalla del gerente...
-			
-
-		
 	
 			 
-
 		//Los contenedores disponibles 
 		Contenedor cont1 = new Contenedor(1,1000,"Azul");
 		Contenedor cont2 = new Contenedor(2,1500,"Amarillo");
@@ -35,6 +37,11 @@ public class PantallaGerente {
 				"Asignar contenedor",
 				"Salir"
 		};
+		
+		ArrayList<Producto> productosPedido = obtenerProductosParaPedido();
+		
+		Pedido pedidoNuevo = gerente1.crearPedido(1, null, "En proceso", productosPedido);
+			
 		int op = 0;
 		do {
 			// seleccion de contenedores
@@ -68,9 +75,13 @@ public class PantallaGerente {
 							break;
 							
 						}
+						
 						if (contSeleccionado != null) {
 							// el gerente ha seleccioando el contenedor 
+							 gerente1.agregarPedidoContenedor(contSeleccionado, pedidoNuevo);
 							JOptionPane.showMessageDialog(null,"El Gerente " + gerente1.getNombre() + " ha Seleccionado el :\n" +  contSeleccionado);    
+						} else {
+							JOptionPane.showMessageDialog(null, "El Gerente " + gerente1.getNombre() + " no ha seleccionado ningún contenedor. El pedido no se ha agregado.");
 						}
 					} while (opC!=3);
 					break;
@@ -89,6 +100,7 @@ public class PantallaGerente {
 			}
 			
 			
+			
 		} while (op !=3);
 		
 		
@@ -96,5 +108,32 @@ public class PantallaGerente {
 				
 
 	}
+	 private static ArrayList<Producto> obtenerProductosParaPedido() {
+	        ArrayList<Producto> productos = new ArrayList<>();
+	        // Lógica para obtener productos
+	        // Ejemplo:
+	        int id = 1; // 
+	        String nombre = "leche"; 
+	        double tamano = 10.5; 
+	        double precio = 25.99; 
+	        int stock = 100; 
+	        Proveedor proveedor = new Proveedor(1, "Jorge", "Alimentos", "Islas Malvinas", "1157302364", "jorgenew.@gmail.com"); 
+	        productos.add(new Producto(id, nombre, tamano, precio, stock, proveedor));
+	        return productos;
+	    }
+	 
+	 private static Contenedor obtenerContenedor(int opcion, Contenedor cont1, Contenedor cont2, Contenedor cont3) {
+	        switch (opcion) {
+	            case 0:
+	                return cont1;
+	            case 1:
+	                return cont2;
+	            case 2:
+	                return cont3;
+	            default:
+	                return null;
+	        }
+	        
+	    }
 
 } 
