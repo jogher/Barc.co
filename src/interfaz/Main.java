@@ -20,25 +20,64 @@ public class Main {
 
 	public static void main(String[] args) {
 //usuario es "admin" y la contraseña es "pass"
-		boolean loginValido = false;
+		/*boolean loginValido = false;
 
 		while(!loginValido) {
 		  try {
-
 		      Conexion conexion = new Conexion();
 		      
 		      Connection con = conexion.conectar();
-
-
 		      // declaracion sql
 		      String consulta = "SELECT contrasena FROM usuarios WHERE nombre = ?";
+		      PreparedStatement preparedStatement = con.prepareStatement(consulta);*/
 		      
-		      PreparedStatement preparedStatement = con.prepareStatement(consulta);
-		      String[] opciones = {"Ingresar credenciales", "Salir"};
+		      
+		      String[] opciones = {"Ingresar credenciales", "Registrarse", "Salir"};
+		      int opcion = 0;
+		      
+		      do {
+		    	  opcion = JOptionPane.showOptionDialog(null, "Iniciar sesión", null, 0, 0, null, opciones, opciones[0]);
+		    	  
+		    	  Conexion conexion = new Conexion(); 
+		    	  Connection con = conexion.conectar();
+		    	  PreparedStatement stmt;
+		    	  
+		    	  switch (opcion) {
+				case 0:
+					String usuario = JOptionPane.showInputDialog("Ingrese su Usuario");
+					String contrasenia = JOptionPane.showInputDialog("Ingrese su Contraseña");
+					String rol;
+					
+					String sql = "SELECT 'id_cliente' FROM 'cliente' WHERE nombre == '"+usuario+"' AND contrasenia == '"+contrasenia+"'";
+					if (sql != null) {
+						rol="cliente";
+						String id_usuario=sql;
+					}
+					
+					sql = "SELECT 'id_gerente' FROM 'gerente' WHERE nombre == '"+usuario+"' AND contrasenia == '"+contrasenia+"'";
+					if (sql != null) {
+						rol="gerente";
+					}
+					
+					sql = "SELECT 'id_proveedor' FROM 'proveedor' WHERE nombre == '"+usuario+"' AND contrasenia == '"+contrasenia+"'";
+					if (sql != null) {
+						rol="proveedor";
+					}
+					break;
+				case 1:
+					//registro de usuario
+					break;
+				case 2: 
+					JOptionPane.showMessageDialog(null, "Salir");
+					break;
+				default:
+					break;
+				}
+			} while (opcion !=3);
+		      
+		      
 
-		      int opcion = JOptionPane.showOptionDialog(null, "Iniciar sesión", null, 0, 0, null, opciones, opciones[0]);
-
-		      if(opcion == 1) {
+		    /*  if(opcion == 1) {
 		        System.exit(0); 
 		      }
 		      // ingreso de contra y usuario
@@ -73,7 +112,7 @@ public class Main {
 		    }
 
 		
-		}
+		}*/
 		
 		String[] Opciones =
 				{
