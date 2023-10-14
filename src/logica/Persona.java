@@ -116,6 +116,18 @@ public class Persona implements validador {
 			
 	}
 	
+	public boolean IniciarSe() {
+		if (this.ValidarNombre(this.getNombre()) 
+			&& 
+			this.ValidarContrasena(this.getContrasena())) {
+			
+			return true;
+		}else {
+			JOptionPane.showMessageDialog(null, "contrasena incorrecta");
+			return false;
+		}
+			
+	}
 	
 	
 	

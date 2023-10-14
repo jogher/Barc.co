@@ -19,5 +19,16 @@ public interface validador {
 			return false;
 		}
 	}
-
+	
+	public default boolean ValidarNombre(String nombre) {
+		
+		if(nombre != null && !nombre.trim().isEmpty()) { // ultilizo para verificar que el nombre no sea nulo y 
+			return true; // va ser un nombre valido        que no este vacio o contenga solo espacios
+		} else {
+			return false;
+		}
+		
+	}
+	
+	
 }
