@@ -71,7 +71,8 @@ public class PantallaGerente {
 								contSeleccionado = cont3;
 							break;
 							case 3:
-								
+								JOptionPane.showMessageDialog(null, "Salir");
+								 System.exit(0);
 							break;
 							
 						}
@@ -93,6 +94,7 @@ public class PantallaGerente {
 					break;
 				case 3: 
 					JOptionPane.showMessageDialog(null, "Salir");
+					 System.exit(0);
 					break;
 				default:
 				break;
