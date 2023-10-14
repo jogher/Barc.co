@@ -19,11 +19,7 @@ public class PantallaGerente {
 
 
 		Gerente gerente1 = new Gerente(1, 30445876, "Carlos", "Ramirez", null, null);
-		 
 
-	
-		    
-		    // Resto de tu lógica para la pantalla del gerente...
 	
 			 
 		//Los contenedores disponibles 
