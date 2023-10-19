@@ -15,7 +15,7 @@ public class Conexion {
 			
 			
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3307/Barco","root","");
-			//JOptionPane.showMessageDialog(null, "se conecto");
+			JOptionPane.showMessageDialog(null, "se conecto");
 		} catch (Exception e) {
 	
 			e.printStackTrace();

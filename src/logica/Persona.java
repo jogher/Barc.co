@@ -2,7 +2,7 @@ package logica;
 
 import javax.swing.JOptionPane;
 
-public class Persona implements validador {
+public class Persona implements Validador {
 	private int id;
 	private int dni;
 	private String nombre;

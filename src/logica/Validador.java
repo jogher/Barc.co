@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 
 import DLL.Conexion;
 
-public interface validador {
+public interface Validador {
 	
 	public default boolean ValidarContrasena(String contrasena)	{
 		for (int i = 0; i < contrasena.length(); i++) {
@@ -37,21 +37,22 @@ public interface validador {
 	}
 	
 	
-	Conexion conexion = new Conexion(); 
-	Connection con = conexion.conectar();
-	PreparedStatement stmt;
 	
-	public default boolean IniciarSesion(String email, String contrasena, String rol) {
-		String sql = "select email, contrasena from "+rol+" where email=? and contrasena=?";
+	
+	 public default boolean IniciarSesion(String email, String contrasena, String rol) {
+		Conexion conexion = new Conexion(); 
+		Connection con = conexion.conectar();//Conexion a la BD
+		PreparedStatement stmt;
+		String sql = "select email, contrasena from "+rol+" where email=? and contrasena=?"; //Consulta
 		boolean devolver = false; 
 		try {
 			stmt = con.prepareStatement(sql);
-			stmt.setString(1, email);
+			stmt.setString(1, email);         //Guardo los resultados de la consulta
 			stmt.setString(2, contrasena);
 			ResultSet resultado = stmt.executeQuery();
 			while(resultado.next()) {
-				if (resultado.getString("email")==email && resultado.getString("contrasena")==contrasena) {
-					devolver = true;
+				if (resultado.getString("email").equals(email) && resultado.getString("contrasena").equals(contrasena)) {
+					devolver = true; //Reviso si se encuentra al usuario
 				} else {
 					devolver = false;
 				}
@@ -61,5 +62,7 @@ public interface validador {
 		}
 		return devolver;
 	}
+
+	
 	
 }

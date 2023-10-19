@@ -13,8 +13,7 @@ import logica.Pedido;
 
 public class PantallaGerente {
 
-
-	public static void main(String[] args) {
+	public void Menu() {
 		
 
 
