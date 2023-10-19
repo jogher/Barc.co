@@ -52,22 +52,27 @@ public class Main {
 				case 0:
 					String usuario = JOptionPane.showInputDialog("Ingrese su Usuario");
 					String contrasenia = JOptionPane.showInputDialog("Ingrese su Contraseña");
-					String rol;
+					
 					
 					String sql = "SELECT 'id_cliente' FROM 'cliente' WHERE nombre == '"+usuario+"' AND contrasenia == '"+contrasenia+"'";
 					if (sql != null) {
-						rol="cliente";
+						
 						String id_usuario=sql;
+						JOptionPane.showMessageDialog(null, id_usuario);
 					}
 					
 					sql = "SELECT 'id_gerente' FROM 'gerente' WHERE nombre == '"+usuario+"' AND contrasenia == '"+contrasenia+"'";
 					if (sql != null) {
-						rol="gerente";
+						
+						String id_usuario=sql;
+						JOptionPane.showMessageDialog(null, id_usuario);
 					}
 					
 					sql = "SELECT 'id_proveedor' FROM 'proveedor' WHERE nombre == '"+usuario+"' AND contrasenia == '"+contrasenia+"'";
 					if (sql != null) {
-						rol="proveedor";
+						
+						String id_usuario=sql;
+						JOptionPane.showMessageDialog(null, id_usuario);
 					}
 					break;
 				case 1:

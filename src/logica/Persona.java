@@ -7,20 +7,21 @@ public class Persona implements validador {
 	private int dni;
 	private String nombre;
 	private String apellido;
-	
-	private String usuario;
+	private String telefono;
+	private String email;
 	private String contrasena;
 	
 
 
 
-	public Persona(int id, int dni, String nombre, String apellido, String usuario, String contrasena) {
+	public Persona(int id, int dni, String nombre, String apellido, String telefono, String email, String contrasena) {
 		super();
 		this.id = id;
 		this.dni = dni;
 		this.nombre = nombre;
 		this.apellido = apellido;
-		this.usuario = usuario;
+		this.telefono = telefono;
+		this.email = email;
 		this.contrasena = contrasena;
 	}
 
@@ -30,65 +31,41 @@ public class Persona implements validador {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-
-
 	public int getId() {
 		return id;
 	}
-
-
-
 	public void setId(int id) {
 		this.id = id;
 	}
-
-
-
 	public int getDni() {
 		return dni;
 	}
-
-
-
 	public void setDni(int dni) {
 		this.dni = dni;
 	}
-
-
-
 	public String getNombre() {
 		return nombre;
 	}
-
-
-
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
-
-
 	public String getApellido() {
 		return apellido;
 	}
-
-
-
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
 	}
-
-
-
-	public String getUsuario() {
-		return usuario;
+	public String getTelefono(){
+		return telefono;
 	}
-
-
-
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 
@@ -104,7 +81,7 @@ public class Persona implements validador {
 	}
 	
 	public boolean IniciarSesion() {
-		if (this.ValidarMail(this.getUsuario()) 
+		if (this.ValidarMail(this.getEmail()) 
 			&& 
 			this.ValidarContrasena(this.getContrasena())) {
 			

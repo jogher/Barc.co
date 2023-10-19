@@ -9,8 +9,9 @@ public class Proveedor {
 	private String ubicacion;
 	private String telefono; 
 	private String email;
+	private String contrasena;
 	private ArrayList<Producto> productos;
-	public Proveedor(int id, String nombre, String rubro, String ubicacion, String telefono, String email) {
+	public Proveedor(int id, String nombre, String rubro, String ubicacion, String telefono, String email, String contrasena) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -18,6 +19,7 @@ public class Proveedor {
 		this.ubicacion = ubicacion;
 		this.telefono = telefono;
 		this.email = email;
+		this.contrasena = contrasena;
 		this.productos = new ArrayList<Producto>();
 	}
 	public int getId() {
@@ -56,6 +58,13 @@ public class Proveedor {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public String getContrasena() {
+		return contrasena;
+	}
+	public void setContrasena(String contrasena) {
+		this.contrasena = contrasena;
+	}
+	
 	 public ArrayList<Producto> getProductos() {
 		    return productos; 
 		  }
