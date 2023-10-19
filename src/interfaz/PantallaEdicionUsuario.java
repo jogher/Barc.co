@@ -27,9 +27,9 @@ public class PantallaEdicionUsuario {
 					stmt = con.prepareStatement(sql);
 					stmt.setString(1, this.getUsuario());
 					stmt.executeUpdate();
-					return true;
+					
 				} catch (Exception e) {
-					return false;
+					
 				}
 				break;
 			case 1:
@@ -38,9 +38,9 @@ public class PantallaEdicionUsuario {
 					stmt = con.prepareStatement(sql);
 					stmt.setString(1, this.getContrasena());
 					stmt.executeUpdate();
-					return true;
+					
 				} catch (Exception e) {
-					return false;
+					
 				}
 				break;
 			case 2: 

@@ -17,7 +17,7 @@ public class PantallaGerente {
 		
 
 
-		Gerente gerente1 = new Gerente(1, 30445876, "Carlos", "Ramirez", null, null);
+		Gerente gerente1 = new Gerente(1, 30445876, "Carlos", "Ramirez", "1212121", "carlos@email.com","1234");
 
 	
 			 
@@ -114,7 +114,7 @@ public class PantallaGerente {
 	        double tamano = 10.5; 
 	        double precio = 25.99; 
 	        int stock = 100; 
-	        Proveedor proveedor = new Proveedor(1, "Jorge", "Alimentos", "Islas Malvinas", "1157302364", "jorgenew.@gmail.com"); 
+	        Proveedor proveedor = new Proveedor(1, "Jorge", "Alimentos", "Islas Malvinas", "1157302364", "jorgenew.@gmail.com","1234"); 
 	        productos.add(new Producto(id, nombre, tamano, precio, stock, proveedor));
 	        return productos;
 	    }

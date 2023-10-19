@@ -99,6 +99,8 @@ public class Main{
 					} else if(validador.IniciarSesion(email,contrasena,"proveedor")){
 						PantallaProveedor interfazProveedor = new PantallaProveedor();
 						interfazProveedor.Menu();
+					} else {
+						JOptionPane.showMessageDialog(null, "Email o Contraseña incorrecto \nNo se puedo iniciar la sesion");
 					}
 					
 					break;
