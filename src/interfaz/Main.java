@@ -111,7 +111,7 @@ public class Main{
 				default:
 					break;
 				}
-			} while (opcion !=3);
+			} while (opcion !=2);
 		      
 		      
 
