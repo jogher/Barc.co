@@ -4,8 +4,8 @@ import javax.swing.JOptionPane;
 
 public class Usuario extends Persona{
 	
-	public Usuario(int id, int dni, String nombre, String apellido, String usuario, String contrasena) {
-		super(id, dni, nombre, apellido, usuario, contrasena);
+	public Usuario(int id, int dni, String nombre, String apellido, String telefono, String email, String contrasena) {
+		super(id, dni, nombre, apellido, telefono, email, contrasena);
 		// TODO Auto-generated constructor stub
 	}
 

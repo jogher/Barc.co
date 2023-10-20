@@ -8,10 +8,9 @@ import javax.swing.JOptionPane;
 
 public class Gerente extends Persona {
 
-	
 
-	public Gerente(int id, int dni, String nombre, String apellido, String usuario, String contrasena) {
-		super(id, dni, nombre, apellido, usuario, contrasena);
+	public Gerente(int id, int dni, String nombre, String apellido, String telefono, String email, String contrasena) {
+		super(id, dni, nombre, apellido, telefono, email, contrasena);
 		
 	}
 	
