@@ -1,10 +1,16 @@
 package logica;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.ArrayList;
 
 
 import javax.swing.JOptionPane;
+
+import DLL.Conexion;
 
 public class Gerente extends Persona {
 
@@ -42,4 +48,37 @@ public class Gerente extends Persona {
 	
 	
 
+	Conexion con = new Conexion();	
+	Connection conexion = con.conectar();	
+	PreparedStatement stmt;
+	 public LinkedList<Gerente> Mostrar(String email, String contrasena){
+			LinkedList<Gerente> gerentes = new LinkedList<Gerente>();
+			String sql = "SELECT * FROM 'gerente' WHERE 'email'="+email+"AND 'contrasena'="+contrasena;
+			String[] datos = new String[7];
+			try {
+				stmt = conexion.prepareStatement(sql);
+				ResultSet resultados =	stmt.executeQuery();
+				while(resultados.next()) {
+					
+					datos[0] = resultados.getString(1);
+					datos[1] = resultados.getString(2);
+					datos[2] = resultados.getString(3);
+					datos[3] = resultados.getString(4);
+					datos[4] = resultados.getString(5);
+					datos[5] = resultados.getString(6);
+					datos[6] = resultados.getString(7);
+					gerentes.add(new Gerente(Integer.parseInt(datos[0]),Integer.parseInt(datos[1]),datos[2],datos[3],datos[4],datos[5],datos[6]));
+				}
+				if(gerentes.isEmpty()) {
+					
+					return null;
+				}else {
+					
+					return gerentes;
+				}
+			} catch (Exception e) {
+				System.out.println("Error");
+				return null;
+			}
+	 }
 }

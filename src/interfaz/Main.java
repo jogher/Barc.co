@@ -4,6 +4,7 @@ import javax.swing.JOptionPane;
 
 import DLL.Conexion;
 import logica.Producto;
+import logica.Proveedor;
 import logica.MiValidador;
 import logica.Validador;
 import logica.Pedido;
@@ -91,12 +92,17 @@ public class Main{
 					String contrasena = JOptionPane.showInputDialog("Ingrese su Contraseña");
 					
 					if (validador.IniciarSesion(email,contrasena,"gerente")) {
+						Gerente Verificador = new Gerente();
+						Verificador.Mostrar(email, contrasena);
 						PantallaGerente interfazGerente = new PantallaGerente ();
 						interfazGerente.Menu();
 					} else if(validador.IniciarSesion(email,contrasena,"cliente")) {
+						Cliente Verificador = new Cliente();
+						Verificador.Mostrar(email, contrasena);
 						PantallaCliente interfazCliente = new PantallaCliente();
 						interfazCliente.Menu();
 					} else if(validador.IniciarSesion(email,contrasena,"proveedor")){
+						Proveedor Verificador = new Proveedor();
 						PantallaProveedor interfazProveedor = new PantallaProveedor();
 						interfazProveedor.Menu();
 					} else {

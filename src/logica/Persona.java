@@ -24,7 +24,14 @@ public class Persona implements Validador {
 		this.email = email;
 		this.contrasena = contrasena;
 	}
-
+	public Persona (int id, String nombre, String telefono, String email, String contrasena) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.telefono = telefono;
+		this.email = email;
+		this.contrasena = contrasena;
+	}
 
 
 	public Persona() {
