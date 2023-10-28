@@ -1,5 +1,6 @@
 package interfaz;
 import java.util.ArrayList;
+
 import javax.swing.JOptionPane;
 
 import DLL.Conexion;
@@ -64,6 +65,77 @@ public class Main{
 					break;
 				case 1:
 					//registro de usuario
+					
+					String nombre = "";
+					String nuevoMail = "";
+					String nuevaContrasena = "";
+					
+					nombre =  JOptionPane.showInputDialog("Ingrese su nombre");
+					nuevoMail = JOptionPane.showInputDialog("Ingrese su nuevo mail");
+					nuevaContrasena = JOptionPane.showInputDialog("Ingrese una contraseña");
+					
+					nombre = nombre.trim();
+					nuevoMail = nuevoMail.trim();
+					nuevaContrasena = nuevaContrasena.trim();
+					
+					String [] tiposUsuario = {"Gerente", "Cliente", "Proveedor"};
+					int tipoUsuario = JOptionPane.showOptionDialog(null, "Seleccione el tipo de usuario", null, 0, 0, null, tiposUsuario, tiposUsuario[0]);
+					
+					String tipo = "";
+						switch (tipoUsuario) {
+							case 0:
+								tipo = "Gerente";
+								break;
+							case 1:
+								tipo = "Cliente";
+								break;
+							case 2:
+								tipo = "Proveedor";
+								break;
+							default:
+								break;
+						}
+					
+					try {
+						Conexion conexion = new Conexion();				 
+						Connection con = conexion.conectar();
+						System.out.println("Conexión a la base de datos establecida: " + (con != null));
+
+						System.out.println("Tipo de usuario: " + tipo);
+						//mensaje de depruacion para ver si funciona 
+						System.out.println("Nombre: " + nombre);
+						System.out.println("Mail: " + nuevoMail);
+						System.out.println("Contraseña: " + nuevaContrasena);
+
+						
+						String query = "INSERT INTO " + tipo.trim() + " (nombre, email, contrasena) VALUES (?,?,?)";
+						PreparedStatement stmt = con.prepareStatement(query);
+						stmt.setString(1, nombre);
+						stmt.setString(2, nuevoMail);
+						stmt.setString(3, nuevaContrasena);
+						
+						System.out.println("Consulta SQL: " + query);
+						
+						
+						int datosInsertados = stmt.executeUpdate();
+						if (datosInsertados >0) {
+							JOptionPane.showMessageDialog(null, " Nuevo usuario registrado como " + tipo);
+							System.out.println("Filas afectadas: " + datosInsertados);
+							
+							
+						}else {
+							JOptionPane.showMessageDialog(null, "No se puedo registrar el usuario");
+						}
+						
+						stmt.close();
+						con.close();
+						
+					} catch (SQLException e ) {
+						JOptionPane.showMessageDialog(null, "Error de conexión o de base de datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+						e.printStackTrace();
+					}
+					
+					
 					break;
 				case 2: 
 					JOptionPane.showMessageDialog(null, "Salir");
