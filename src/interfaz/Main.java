@@ -23,6 +23,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Main{
+	
+
+	public static String email;
 
 	public static void main(String[] args) {
 
@@ -62,6 +65,7 @@ public class Main{
 						Proveedor Verificador = new Proveedor();
 						Verificador.Mostrar(email, contrasena);
 						PantallaProveedor interfazProveedor = new PantallaProveedor();
+						Main.email = email;
 						interfazProveedor.Menu();
 						 usuario = new Usuario(Verificador.getNombre(), email, "Proveedor");
 					} else {
