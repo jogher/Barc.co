@@ -2,27 +2,34 @@ package logica;
 
 import javax.swing.JOptionPane;
 
-public class Usuario extends Persona{
+public class Usuario {
 	
-	public Usuario(int id, int dni, String nombre, String apellido, String telefono, String email, String contrasena) {
-		super(id, dni, nombre, apellido, telefono, email, contrasena);
-		// TODO Auto-generated constructor stub
-	}
+	
+	    private String nombre;
+	    private String email;
+	    private String tipo;
 
-	public Usuario() {
-		super();
-		
-	}
+	   
+	    public Usuario(String nombre, String email, String tipo) {
+	        this.nombre = nombre;
+	        this.email = email;
+	        this.tipo = tipo;
+	    }
+
+	   
+	    public String getNombre() {
+	        return nombre;
+	    }
+
+	    public String getEmail() {
+	        return email;
+	    }
+
+	    public String getTipo() {
+	        return tipo;
+	    }
 	
-	public boolean IniciarSesion() {
-		if(this.ValidarNombre(this.getNombre()) && this.ValidarContrasena(this.getContrasena())) {
-			return true;
-		} else {
-			JOptionPane.showMessageDialog(null, "Contrasena incorrecta");
-			return false;
-		}		
-		
-	}
+
 	
 
 }
