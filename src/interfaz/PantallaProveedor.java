@@ -3,7 +3,7 @@ package interfaz;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
-
+import interfaz.Main;
 import logica.Producto;
 import logica.Proveedor;
 
