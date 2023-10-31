@@ -1,21 +1,30 @@
 package interfaz;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
+
+import DLL.Conexion;
 import interfaz.Main;
 import logica.Producto;
 import logica.Proveedor;
+import interfaz.Main;
 
 public class PantallaProveedor {
 	
+
 	Proveedor proveedor1 = new Proveedor(1, "Proveedor 1", "Alimentos", "Calle Falsa 123", "+541144444444", "proveedor1@email.com","1234");
 	public Proveedor getProveedor() {
 	    return proveedor1;
 	}
 
 	public void Menu() {
-		
+		Conexion conexion = new Conexion(); 
+		Connection con = conexion.conectar();
+		PreparedStatement stmt = null;
 
 		/*Opciones del menu*/
 		String [] Opciones={"Agregar stock","Nuevo Producto", "Eliminar Producto","Ver Productos" ,"Salir"};
@@ -59,6 +68,34 @@ public class PantallaProveedor {
 
 		          // Agregar el nuevo producto al proveedor
 		          proveedor1.addProducto(p);
+		          
+		          //nueva logica utilizando la base de datos
+		          
+		          // Obtener email del proveedor logueado
+		          String emailProveedor = Main.email;// obtener el email ingresado en el login
+
+		          // Obtener id del proveedor
+		          int idProveedor = 0;
+		          String query = "SELECT id_proveedor FROM proveedor WHERE email = ?";
+		          stmt = con.prepareStatement(query);
+		          stmt.setString(1, emailProveedor);
+		          ResultSet rs = stmt.executeQuery();
+		          if (rs.next()) {
+		            idProveedor = rs.getInt("id_proveedor"); 
+		          }
+
+		          // Insertar nuevo producto
+		          query = "INSERT INTO producto (id_producto, nombre, tamano, precio, stock, id_proveedor) VALUES (?, ?, ?, ?, ?, ?)";
+		          stmt = con.prepareStatement(query);
+		          stmt.setInt(1, id);
+		          stmt.setString(2, nombre);
+		          stmt.setDouble(3, tamano);
+		          stmt.setDouble(4, precio);
+		          stmt.setInt(5, stock);
+		          stmt.setInt(6, idProveedor);
+		          stmt.executeUpdate();
+
+		          JOptionPane.showMessageDialog(null, "Producto agregado");
 				break;
 			case 2:
 				JOptionPane.showInputDialog("Ingrese id del producto que desea eliminar: ");
