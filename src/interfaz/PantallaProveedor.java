@@ -37,18 +37,6 @@ public class PantallaProveedor {
 				stock_search = Integer.parseInt(JOptionPane.showInputDialog("Ingrese cantidad de productos que agrega al stock:"));
 				
 				/*Metodo de proveedor*/
-				
-				ArrayList<Producto> productos_1 = proveedor1.getProductos();
-//Se buscan los productos del proveedor, si el id ingresado coincide con el id de un producto en el ArrayList de productos del proveedor se le agrega el stock ingresado al stock que ya se tenía (tecnicamente, tambien puede ser usado para restar stock)
-				  for(Producto p : productos_1) {
-				    if(p.getId() == id_search) {
-				    	int updated_stock = p.getStock() + stock_search;
-				      p.setStock(updated_stock);
-				    }
-				    else {
-				        JOptionPane.showMessageDialog(null, "No se ha podido encontrar ningún producto con esa ID"); 
-				      }
-				  }
 				//nueva logica utilizando la base de datos
 				  try {
 				        /* Database Update */
@@ -75,12 +63,6 @@ public class PantallaProveedor {
 		          double precio = Double.parseDouble(JOptionPane.showInputDialog("Precio del producto:"));
 		          int stock = Integer.parseInt(JOptionPane.showInputDialog("Stock inicial:"));
 
-		          Producto p = new Producto(id, nombre, tamano, precio, stock, proveedor1);
-		          JOptionPane.showMessageDialog(null, "Productos agregados correctamente al proveedor.");
-
-		          // Agregar el nuevo producto al proveedor
-		          proveedor1.addProducto(p);
-		          
 		          //nueva logica utilizando la base de datos
 		          
 		          // Obtener email del proveedor logueado
@@ -136,23 +118,26 @@ public class PantallaProveedor {
 				break;
 			case 3:
 				// Ver Productos
-			      
-				String mensaje = "";
-			    
-			    ArrayList<Producto> productos = proveedor1.getProductos();
-			    
-			    for(int i = 0; i < productos.size(); i++) {
-			    	Producto p1 = productos.get(i); 
-			        mensaje += "Id: " + p1.getId() + "\n";
-			        mensaje += "Nombre: " + p1.getNombre() + "\n";
-			        mensaje += "Tamaño: " + p1.getTamano() + "\n";
-			        mensaje += "Precio: " + p1.getPrecio() + "\n";
-			        mensaje += "Stock: " + p1.getStock() + "\n\n";
-			      }
-			      //JOptionPane.showMessageDialog(null, mensaje);
+				emailProveedor = Main.email;// obtener el email ingresado en el login
+		          
+		        // Obtener id del proveedor
+		        idProveedor = 0;
+			    try {
+			    	  String query = "SELECT id_proveedor FROM proveedor WHERE email = ?";
+			          PreparedStatement stmt = con.prepareStatement(query);
+			          stmt.setString(1, emailProveedor);
+			          ResultSet rs = stmt.executeQuery();
+			          if (rs.next()) {
+			            idProveedor = rs.getInt("id_proveedor"); 
+			          }
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage());
+				}
+		
+			   //JOptionPane.showMessageDialog(null, mensaje);
 			  //nueva logica utilizando la base de datos
 			    try {
-			        String selectQuery = "SELECT * FROM producto";
+			        String selectQuery = "SELECT * FROM producto WHERE id_proveedor ="+idProveedor;
 			        PreparedStatement selectStmt = con.prepareStatement(selectQuery);
 			        ResultSet rs = selectStmt.executeQuery();
 
