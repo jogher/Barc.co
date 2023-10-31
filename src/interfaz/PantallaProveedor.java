@@ -49,7 +49,22 @@ public class PantallaProveedor {
 				        JOptionPane.showMessageDialog(null, "No se ha podido encontrar ningún producto con esa ID"); 
 				      }
 				  }
-				
+				  try {
+				        /* Database Update */
+				        String updateQuery = "UPDATE producto SET stock = stock + ? WHERE id_producto = ?";
+				        PreparedStatement updateStmt = con.prepareStatement(updateQuery);
+				        updateStmt.setInt(1, stock_search);
+				        updateStmt.setInt(2, id_search);
+				        int rowsUpdated = updateStmt.executeUpdate();
+				            
+				        if(rowsUpdated > 0){
+				            JOptionPane.showMessageDialog(null, "Stock Actualizado for id: " + id_search);
+				        } else {
+				            JOptionPane.showMessageDialog(null, "Ningun registro de producto fue encontrado con la id : " + id_search);
+				        }       
+				    } catch (SQLException e) {
+				        JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage());
+				    }
 				break;
 			case 1:
 		          // Pedir datos para nuevo producto
@@ -117,8 +132,28 @@ public class PantallaProveedor {
 			        mensaje += "Precio: " + p1.getPrecio() + "\n";
 			        mensaje += "Stock: " + p1.getStock() + "\n\n";
 			      }
-			      
-			      JOptionPane.showMessageDialog(null, mensaje);
+			      //JOptionPane.showMessageDialog(null, mensaje);
+			    try {
+			        /* DB */
+			        String selectQuery = "SELECT * FROM producto";
+			        PreparedStatement selectStmt = con.prepareStatement(selectQuery);
+			        ResultSet rs = selectStmt.executeQuery();
+
+			        StringBuilder new_mensaje = new StringBuilder();
+
+			        while(rs.next()){
+			        	new_mensaje.append("Id: ").append(rs.getInt("id_producto")).append("\n");
+			        	new_mensaje.append("Nombre: ").append(rs.getString("nombre")).append("\n");
+			        	new_mensaje.append("Tamaño: ").append(rs.getDouble("tamano")).append("\n");
+			        	new_mensaje.append("Precio: ").append(rs.getDouble("precio")).append("\n");
+			        	new_mensaje.append("Stock: ").append(rs.getInt("stock")).append("\n\n");
+			        }
+			            
+			        JOptionPane.showMessageDialog(null, new_mensaje.toString());
+			    } catch(SQLException e) {
+			        JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage());
+			    }
+
 				break;
 			case 4:
 				JOptionPane.showMessageDialog(null, "Salir");
