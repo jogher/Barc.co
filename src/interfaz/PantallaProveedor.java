@@ -49,6 +49,7 @@ public class PantallaProveedor {
 				        JOptionPane.showMessageDialog(null, "No se ha podido encontrar ningún producto con esa ID"); 
 				      }
 				  }
+				//nueva logica utilizando la base de datos
 				  try {
 				        /* Database Update */
 				        String updateQuery = "UPDATE producto SET stock = stock + ? WHERE id_producto = ?";
@@ -116,8 +117,9 @@ public class PantallaProveedor {
 			case 2:
 				int id_erase = Integer.parseInt(JOptionPane.showInputDialog("Id del producto a eliminar:"));
 				/*Metodo de proveedor*/
+				//nueva logica utilizando la base de datos
 				try {
-			        /* Database Delete */
+
 			        String deleteQuery = "DELETE FROM producto WHERE id_producto = ?";
 			        PreparedStatement deleteStmt = con.prepareStatement(deleteQuery);
 			        deleteStmt.setInt(1, id_erase);
@@ -148,8 +150,8 @@ public class PantallaProveedor {
 			        mensaje += "Stock: " + p1.getStock() + "\n\n";
 			      }
 			      //JOptionPane.showMessageDialog(null, mensaje);
+			  //nueva logica utilizando la base de datos
 			    try {
-			        /* DB */
 			        String selectQuery = "SELECT * FROM producto";
 			        PreparedStatement selectStmt = con.prepareStatement(selectQuery);
 			        ResultSet rs = selectStmt.executeQuery();
