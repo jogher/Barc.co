@@ -47,39 +47,27 @@ public class Main{
 						 contrasena = JOptionPane.showInputDialog("Ingrese su Contraseña");
 					} while (validador.ValidarMail(email) && validador.ValidarContrasena(contrasena));
 					
-					Usuario usuario = null;
 					
 					if (validador.IniciarSesion(email,contrasena,"gerente")) {
 						Gerente Verificador = new Gerente();
 						Verificador.Mostrar(email, contrasena);
 						PantallaGerente interfazGerente = new PantallaGerente ();
+						Main.email = email;
 						interfazGerente.Menu();
-						usuario = new Usuario(Verificador.getNombre(), email, "Gerente"); 
 					} else if(validador.IniciarSesion(email,contrasena,"cliente")) {
 						Cliente Verificador = new Cliente();
 						Verificador.Mostrar(email, contrasena);						
 						PantallaCliente interfazCliente = new PantallaCliente();
+						Main.email = email;
 						interfazCliente.Menu();
-						 usuario = new Usuario(Verificador.getNombre(), email, "Cliente");
 					} else if(validador.IniciarSesion(email,contrasena,"proveedor")){
 						Proveedor Verificador = new Proveedor();
 						Verificador.Mostrar(email, contrasena);
 						PantallaProveedor interfazProveedor = new PantallaProveedor();
 						Main.email = email;
-						interfazProveedor.Menu();
-						 usuario = new Usuario(Verificador.getNombre(), email, "Proveedor");
+						interfazProveedor.Menu();	 
 					} else {
 						JOptionPane.showMessageDialog(null, "Email o Contraseña incorrecto \nNo se puedo iniciar la sesion");
-					}
-					
-					if (usuario != null) {
-						JOptionPane.showMessageDialog(null, "Usuario: " + usuario.getNombre() + "\n" + 
-															"Email: " + usuario.getEmail() + "\n" +
-															"Tipo: " + usuario.getTipo()				
-								);
-					   /* System.out.println("Usuario: " + usuario.getNombre());
-					    System.out.println("Email: " + usuario.getEmail());
-					    System.out.println("Tipo: " + usuario.getTipo());*/
 					}
 					
 					break;
@@ -165,12 +153,6 @@ public class Main{
 				}
 			} while (opcion !=2);
 		      
-		      
-
-		    
-		
-		
-
 	}
 
 }

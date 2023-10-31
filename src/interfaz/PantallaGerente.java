@@ -2,90 +2,86 @@ package interfaz;
 
 import logica.Gerente;
 import logica.Producto;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import logica.Proveedor;
 import logica.Contenedor;
 
 import javax.swing.JOptionPane;
 
-
+import DLL.Conexion;
 import logica.Pedido;
 
 public class PantallaGerente {
 
 	public void Menu() {
-		
-
-
-		Gerente gerente1 = new Gerente(1, 30445876, "Carlos", "Ramirez", "1212121", "carlos@email.com","1234");
-
-	
-			 
-		//Los contenedores disponibles 
-		Contenedor cont1 = new Contenedor(1,1000,"Azul");
-		Contenedor cont2 = new Contenedor(2,1500,"Amarillo");
-		Contenedor cont3 = new Contenedor (3,2000,"Verde");
-		
-		// opciones de contenedores 
+		Conexion conexion = new Conexion(); 
+		Connection con = conexion.conectar();
+		//guardamos los datos del gerente logueado
+		String email = Main.email;
+		int idGerente;
+		String nombre;
+		String apellido;
+		String contrasena;
+		try {
+			  String query = "SELECT * FROM gerente WHERE email = ?";
+	          PreparedStatement stmt = con.prepareStatement(query);
+	          stmt.setString(1, email);
+	          ResultSet rs = stmt.executeQuery();
+	          if (rs.next()) {
+	            idGerente = rs.getInt("id_gerente"); 
+	            nombre = rs.getString("Nombre");
+	            apellido = rs.getString("Apellido");
+	            contrasena = rs.getString("contrasena");
+	          }
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage());
+		}
+		// opciones
 		
 		String [] Opciones = {
-				"Asignar contenedor",
+				"Contenedor nuevo",
+				"Contenedores",
+				"Barcos",
 				"Salir"
 		};
-		
-		ArrayList<Producto> productosPedido = obtenerProductosParaPedido();
-		
-		Pedido pedidoNuevo = gerente1.crearPedido(1, null, "En proceso", productosPedido);
 			
 		int op = 0;
 		do {
-			// seleccion de contenedores
-			op= JOptionPane.showOptionDialog(null, "Menu Contenedores", null, 0, 0, null, Opciones, Opciones[0]);
+			// seleccion de menu
+			op= JOptionPane.showOptionDialog(null, "Menu Gerente", null, 0, 0, null, Opciones, Opciones[0]);
 			
 			switch (op) {
 				case 0:
-					String [] opcionContenedores = {
-							"Contenedor 1 - Azul" + " Capacidad: " + cont1.getCapacidad(),
-							"Contenedor 2 - Amarillo" + " Capacidad: " + cont2.getCapacidad(),
-							"Contenedor 3 - Verde" + " Capacidad: " + cont3.getCapacidad(),
-							"Salir"
-						};
-					int opC = 0;
-					do {
-						opC= JOptionPane.showOptionDialog(null, "Menu Contenedores", null, 0, 0, null, opcionContenedores, opcionContenedores[0]);
+					int idContenedor = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el id del contenedor:"));
+					int capacidad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la capacidad del contenedor:"));
+					String color = JOptionPane.showInputDialog("Ingrese el color del contenedor:");
+					int idBarco = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el id del barco:"));
 					
-						Contenedor contSeleccionado = null;
-						switch (opC) {
-							case 0:
-								contSeleccionado = cont1;
-								break;
-							case 1: 
-								contSeleccionado = cont2;
-								break;
-							case 2:
-								contSeleccionado = cont3;
-							break;
-							case 3:
-								JOptionPane.showMessageDialog(null, "Salir");
-								 System.exit(0);
-							break;
-							
-						}
+					PreparedStatement stmt;
+					String sql = "INSERT INTO contenedor (id_contenedor, capacidad, color, id_barco) VALUES (?, ?, ?, ?)";
+					try {
+						stmt = con.prepareStatement(sql);
+						stmt.setInt(1, idContenedor);
+						stmt.setInt(2, capacidad);
+						stmt.setString(3, color);
+						stmt.setInt(4, idBarco);
+						stmt.executeUpdate();
 						
-						if (contSeleccionado != null) {
-							// el gerente ha seleccioando el contenedor 
-							 gerente1.agregarPedidoContenedor(contSeleccionado, pedidoNuevo);
-							JOptionPane.showMessageDialog(null,"El Gerente " + gerente1.getNombre() + " ha Seleccionado el :\n" +  contSeleccionado);    
-						} else {
-							JOptionPane.showMessageDialog(null, "El Gerente " + gerente1.getNombre() + " no ha seleccionado ningún contenedor. El pedido no se ha agregado.");
-						}
-					} while (opC!=3);
+						JOptionPane.showMessageDialog(null, "Se ha agregado el contenedor");
+					} catch (Exception e) {
+						JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage());
+					}
+					
 					break;
 				case 1: 
-					
+					//MOSTRAR CONTENEDORES
 					break;
 				case 2:
-					
+					//MOSTRAR BARCOS
 					break;
 				case 3: 
 					JOptionPane.showMessageDialog(null, "Salir");
