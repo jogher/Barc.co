@@ -31,10 +31,12 @@ public class Cliente extends Persona{
 	PreparedStatement stmt;
 	 public LinkedList<Cliente> Mostrar(String email, String contrasena){
 			LinkedList<Cliente> clientes = new LinkedList<Cliente>();
-			String sql = "SELECT * FROM 'cliente' WHERE 'email'="+email+"AND 'contrasena'="+contrasena;
+			String sql = "SELECT * FROM cliente WHERE email=? AND contrasena=?";
 			String[] datos = new String[7];
 			try {
 				stmt = conexion.prepareStatement(sql);
+				stmt.setString(1, email);
+				stmt.setString(2, contrasena);
 				ResultSet resultados =	stmt.executeQuery();
 				while(resultados.next()) {
 					

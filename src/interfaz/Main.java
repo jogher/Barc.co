@@ -56,6 +56,7 @@ public class Main{
 						interfazCliente.Menu();
 					} else if(validador.IniciarSesion(email,contrasena,"proveedor")){
 						Proveedor Verificador = new Proveedor();
+						Verificador.Mostrar(email, contrasena);
 						PantallaProveedor interfazProveedor = new PantallaProveedor();
 						interfazProveedor.Menu();
 					} else {

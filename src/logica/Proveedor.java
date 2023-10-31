@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import javax.swing.JOptionPane;
+
 import DLL.Conexion;
 
 
@@ -55,10 +57,12 @@ public class Proveedor extends Persona{
 	PreparedStatement stmt;
 	 public LinkedList<Proveedor> Mostrar(String email, String contrasena){
 			LinkedList<Proveedor> proveedores = new LinkedList<Proveedor>();
-			String sql = "SELECT * FROM 'proveedor' WHERE 'email'="+email+"AND 'contrasena'="+contrasena;
+			String sql = "SELECT * FROM proveedor WHERE email=? AND contrasena=?";
 			String[] datos = new String[7];
 			try {
 				stmt = conexion.prepareStatement(sql);
+				stmt.setString(1, email);
+				stmt.setString(2, contrasena);
 				ResultSet resultados =	stmt.executeQuery();
 				while(resultados.next()) {
 					
@@ -83,4 +87,10 @@ public class Proveedor extends Persona{
 				return null;
 			}
 	 }
+
+	@Override
+	public String toString() {
+		return "Proveedor [rubro=" + rubro + ", ubicacion=" + ubicacion + ", productos=" + productos + ", con=" + con
+				+ ", conexion=" + conexion + ", stmt=" + stmt + "]";
+	}
 }
