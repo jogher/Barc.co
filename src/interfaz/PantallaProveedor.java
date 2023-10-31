@@ -114,8 +114,23 @@ public class PantallaProveedor {
 		        	}
 				break;
 			case 2:
-				JOptionPane.showInputDialog("Ingrese id del producto que desea eliminar: ");
+				int id_erase = Integer.parseInt(JOptionPane.showInputDialog("Id del producto a eliminar:"));
 				/*Metodo de proveedor*/
+				try {
+			        /* Database Delete */
+			        String deleteQuery = "DELETE FROM producto WHERE id_producto = ?";
+			        PreparedStatement deleteStmt = con.prepareStatement(deleteQuery);
+			        deleteStmt.setInt(1, id_erase);
+			        int rowsDeleted = deleteStmt.executeUpdate();
+
+			        if(rowsDeleted > 0){
+			            JOptionPane.showMessageDialog(null, "Id de producto eliminado: " + id_erase);
+			        } else {
+			            JOptionPane.showMessageDialog(null, "Ningun registro de producto fue encontrado con la id : " + id_erase);
+			        }   
+			    } catch (SQLException e) {
+			        JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage());
+			    }
 				break;
 			case 3:
 				// Ver Productos
