@@ -53,10 +53,12 @@ public class Gerente extends Persona {
 	PreparedStatement stmt;
 	 public LinkedList<Gerente> Mostrar(String email, String contrasena){
 			LinkedList<Gerente> gerentes = new LinkedList<Gerente>();
-			String sql = "SELECT * FROM 'gerente' WHERE 'email'="+email+"AND 'contrasena'="+contrasena;
+			String sql = "SELECT * FROM gerente WHERE email=? AND contrasena=?";
 			String[] datos = new String[7];
 			try {
 				stmt = conexion.prepareStatement(sql);
+				stmt.setString(1, email);
+				stmt.setString(2, contrasena);
 				ResultSet resultados =	stmt.executeQuery();
 				while(resultados.next()) {
 					
