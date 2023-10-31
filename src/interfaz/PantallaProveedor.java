@@ -3,6 +3,7 @@ package interfaz;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -24,8 +25,7 @@ public class PantallaProveedor {
 	public void Menu() {
 		Conexion conexion = new Conexion(); 
 		Connection con = conexion.conectar();
-		PreparedStatement stmt = null;
-
+		PreparedStatement stmt;
 		/*Opciones del menu*/
 		String [] Opciones={"Agregar stock","Nuevo Producto", "Eliminar Producto","Ver Productos" ,"Salir"};
 		int op = 0;
@@ -75,7 +75,7 @@ public class PantallaProveedor {
 		          String emailProveedor = Main.email;// obtener el email ingresado en el login
 
 		          // Obtener id del proveedor
-		          int idProveedor = 0;
+		          int idProveedor = 1;
 		          String query = "SELECT id_proveedor FROM proveedor WHERE email = ?";
 		          stmt = con.prepareStatement(query);
 		          stmt.setString(1, emailProveedor);
