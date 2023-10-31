@@ -1,8 +1,5 @@
 package interfaz;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -12,7 +9,6 @@ import DLL.Conexion;
 import interfaz.Main;
 import logica.Producto;
 import logica.Proveedor;
-import interfaz.Main;
 
 public class PantallaProveedor {
 	
@@ -23,13 +19,13 @@ public class PantallaProveedor {
 	}
 
 	public void Menu() {
-		Conexion conexion = new Conexion(); 
-		Connection con = conexion.conectar();
-		PreparedStatement stmt;
 		/*Opciones del menu*/
 		String [] Opciones={"Agregar stock","Nuevo Producto", "Eliminar Producto","Ver Productos" ,"Salir"};
 		int op = 0;
 		do {
+			Conexion conexion = new Conexion(); 
+			Connection con = conexion.conectar();
+			
 			/*Muestro por pantalla las opciones*/
 			op = JOptionPane.showOptionDialog(null, "Menu", null, 0, 0, null, Opciones, Opciones[0]);
 			/*Dependiendo de la opcion, pido el ingresop de datos y uso la funcion indicada*/
@@ -73,11 +69,12 @@ public class PantallaProveedor {
 		          
 		          // Obtener email del proveedor logueado
 		          String emailProveedor = Main.email;// obtener el email ingresado en el login
-
+		          
 		          // Obtener id del proveedor
-		          int idProveedor = 1;
+		          int idProveedor = 0;
+		          try {
 		          String query = "SELECT id_proveedor FROM proveedor WHERE email = ?";
-		          stmt = con.prepareStatement(query);
+		          PreparedStatement stmt = con.prepareStatement(query);
 		          stmt.setString(1, emailProveedor);
 		          ResultSet rs = stmt.executeQuery();
 		          if (rs.next()) {
@@ -96,6 +93,10 @@ public class PantallaProveedor {
 		          stmt.executeUpdate();
 
 		          JOptionPane.showMessageDialog(null, "Producto agregado");
+
+		          } catch (SQLException e) {
+		        	    JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage());
+		        	}
 				break;
 			case 2:
 				JOptionPane.showInputDialog("Ingrese id del producto que desea eliminar: ");
