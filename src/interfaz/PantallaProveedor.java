@@ -13,11 +13,6 @@ import logica.Proveedor;
 public class PantallaProveedor {
 	
 
-	Proveedor proveedor1 = new Proveedor(1, "Proveedor 1", "Alimentos", "Calle Falsa 123", "+541144444444", "proveedor1@email.com","1234");
-	public Proveedor getProveedor() {
-	    return proveedor1;
-	}
-
 	public void Menu() {
 		/*Opciones del menu*/
 		String [] Opciones={"Agregar stock","Nuevo Producto", "Eliminar Producto","Ver Productos" ,"Salir"};
