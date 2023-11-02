@@ -6,6 +6,7 @@ import logica.Producto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import logica.Proveedor;
 import logica.Contenedor;
@@ -79,13 +80,48 @@ public class PantallaGerente {
 					break;
 				case 1: 
 					//MOSTRAR CONTENEDORES
+					try {
+				        String selectQuery = "SELECT * FROM contenedor";
+				        PreparedStatement selectStmt = con.prepareStatement(selectQuery);
+				        ResultSet rs = selectStmt.executeQuery();
+
+				        StringBuilder new_mensaje = new StringBuilder();
+
+				        while(rs.next()){
+				        	new_mensaje.append("Id: ").append(rs.getInt("id_contenedor")).append("\n");
+				        	new_mensaje.append("Capacidad: ").append(rs.getInt("capacidad")).append("\n");
+				        	new_mensaje.append("Color: ").append(rs.getString("color")).append("\n");
+				        	new_mensaje.append("Id Barco: ").append(rs.getInt("id_barco")).append("\n");
+				        }
+				            
+				        JOptionPane.showMessageDialog(null, new_mensaje.toString());
+				    } catch(SQLException e) {
+				        JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage());
+				    }
 					break;
 				case 2:
 					//MOSTRAR BARCOS
+					try {
+				        String selectQuery = "SELECT * FROM barco";
+				        PreparedStatement selectStmt = con.prepareStatement(selectQuery);
+				        ResultSet rs = selectStmt.executeQuery();
+
+				        StringBuilder new_mensaje = new StringBuilder();
+
+				        while(rs.next()){
+				        	new_mensaje.append("Id: ").append(rs.getInt("id_barco")).append("\n");
+				        	new_mensaje.append("Nombre: ").append(rs.getString("nombre")).append("\n");
+				        	new_mensaje.append("Capacidad: ").append(rs.getInt("capacidad")).append("\n");
+				        	new_mensaje.append("Destino: ").append(rs.getString("destino")).append("\n");
+				        }
+				            
+				        JOptionPane.showMessageDialog(null, new_mensaje.toString());
+				    } catch(SQLException e) {
+				        JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage());
+				    }
 					break;
 				case 3: 
 					JOptionPane.showMessageDialog(null, "Salir");
-					 System.exit(0);
 					break;
 				default:
 				break;
