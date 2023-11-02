@@ -129,7 +129,6 @@ public class PantallaProveedor {
 					JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage());
 				}
 		
-			   //JOptionPane.showMessageDialog(null, mensaje);
 			  //nueva logica utilizando la base de datos
 			    try {
 			        String selectQuery = "SELECT * FROM producto WHERE id_proveedor ="+idProveedor;
