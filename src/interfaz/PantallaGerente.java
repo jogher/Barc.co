@@ -6,6 +6,7 @@ import logica.Producto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import logica.Proveedor;
 import logica.Contenedor;
@@ -46,6 +47,7 @@ public class PantallaGerente {
 				"Contenedor nuevo",
 				"Contenedores",
 				"Barcos",
+				"Asignar Pedido-Contenedor",
 				"Salir"
 		};
 			
@@ -79,54 +81,86 @@ public class PantallaGerente {
 					break;
 				case 1: 
 					//MOSTRAR CONTENEDORES
+					try {
+				        String selectQuery = "SELECT * FROM contenedor";
+				        PreparedStatement selectStmt = con.prepareStatement(selectQuery);
+				        ResultSet rs = selectStmt.executeQuery();
+
+				        StringBuilder new_mensaje = new StringBuilder();
+
+				        while(rs.next()){
+				        	new_mensaje.append("Id: ").append(rs.getInt("id_contenedor")).append("\n");
+				        	new_mensaje.append("Capacidad: ").append(rs.getInt("capacidad")).append("\n");
+				        	new_mensaje.append("Color: ").append(rs.getString("color")).append("\n");
+				        	new_mensaje.append("Id Barco: ").append(rs.getInt("id_barco")).append("\n");
+				        }
+				            
+				        JOptionPane.showMessageDialog(null, new_mensaje.toString());
+				    } catch(SQLException e) {
+				        JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage());
+				    }
 					break;
 				case 2:
 					//MOSTRAR BARCOS
+					try {
+				        String selectQuery = "SELECT * FROM barco";
+				        PreparedStatement selectStmt = con.prepareStatement(selectQuery);
+				        ResultSet rs = selectStmt.executeQuery();
+
+				        StringBuilder new_mensaje = new StringBuilder();
+
+				        while(rs.next()){
+				        	new_mensaje.append("Id: ").append(rs.getInt("id_barco")).append("\n");
+				        	new_mensaje.append("Nombre: ").append(rs.getString("nombre")).append("\n");
+				        	new_mensaje.append("Capacidad: ").append(rs.getInt("capacidad")).append("\n");
+				        	new_mensaje.append("Destino: ").append(rs.getString("destino")).append("\n");
+				        }
+				            
+				        JOptionPane.showMessageDialog(null, new_mensaje.toString());
+				    } catch(SQLException e) {
+				        JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage());
+				    }
 					break;
 				case 3: 
+					//ASIGNAR CONTENEDOR A PEDIDO
+					try {
+						String selectQuery = "SELECT id_pedido, destino FROM pedido WHERE id_contenedor IS NULL";
+				        PreparedStatement selectStmt = con.prepareStatement(selectQuery);
+				        ResultSet rs = selectStmt.executeQuery();
+				        
+				        StringBuilder new_mensaje = new StringBuilder();
+				        
+				        while(rs.next()){
+				        	new_mensaje.append("Id Pedido: ").append(rs.getInt("id_pedido")).append("\n");
+				        	new_mensaje.append("Destino: ").append(rs.getString("destino")).append("\n");
+				        	
+				        }
+				        JOptionPane.showMessageDialog(null, new_mensaje.toString());
+				        int id_pedido = Integer.parseInt(JOptionPane.showInputDialog("Ingrese Id del pedido: "));
+				        int id_contenedor = Integer.parseInt(JOptionPane.showInputDialog("Ingrese Id del contenedor: "));
+				        String selectQuery1 = "UPDATE pedido SET id_contenedor = ? WHERE id_pedido = "+id_pedido;
+				        PreparedStatement selectStmt1;
+				        try {
+				        	selectStmt1 = con.prepareStatement(selectQuery1);
+							selectStmt1.setInt(1, id_contenedor);
+							selectStmt1.executeUpdate();
+							JOptionPane.showMessageDialog(null, "Se ha asignado el pedido al contenedor correctamente");
+						} catch (Exception e) {
+							JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage());
+						}
+					} catch (Exception e) {
+						JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage());
+					}
+					
+					break;
+				case 4: 
 					JOptionPane.showMessageDialog(null, "Salir");
-					 System.exit(0);
 					break;
 				default:
-				break;
-					
+				break;		
 			}
-			
-			
-			
-		} while (op !=3);
+		} while (op !=4);
 		
-		
-		
-				
-
+			
 	}
-	 private static ArrayList<Producto> obtenerProductosParaPedido() {
-	        ArrayList<Producto> productos = new ArrayList<>();
-	        // Lógica para obtener productos
-	        // Ejemplo:
-	        int id = 1; // 
-	        String nombre = "leche"; 
-	        double tamano = 10.5; 
-	        double precio = 25.99; 
-	        int stock = 100; 
-	        Proveedor proveedor = new Proveedor(1, "Jorge", "Alimentos", "Islas Malvinas", "1157302364", "jorgenew.@gmail.com","1234"); 
-	        productos.add(new Producto(id, nombre, tamano, precio, stock, proveedor));
-	        return productos;
-	    }
-	 
-	 private static Contenedor obtenerContenedor(int opcion, Contenedor cont1, Contenedor cont2, Contenedor cont3) {
-	        switch (opcion) {
-	            case 0:
-	                return cont1;
-	            case 1:
-	                return cont2;
-	            case 2:
-	                return cont3;
-	            default:
-	                return null;
-	        }
-	        
-	    }
-
 } 
