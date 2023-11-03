@@ -109,7 +109,7 @@ public class PantallaCliente {
 			 ResultSet rs = stmt.executeQuery();
 			 
 			 while (rs.next()) {
-				 int id = rs.getInt("id");
+				 int id = rs.getInt("id_producto");
 				 String nombre = rs.getString("nombre");
 				 double precio = rs.getDouble("precio");
 				 int stock = rs.getInt("stock");
