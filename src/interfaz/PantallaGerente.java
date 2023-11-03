@@ -124,7 +124,7 @@ public class PantallaGerente {
 				case 3: 
 					//ASIGNAR CONTENEDOR A PEDIDO
 					try {
-						String selectQuery = "SELECT id_pedido, destino FROM pedido WHERE id_contenedor IS NULL";
+						String selectQuery = "SELECT id_pedido, destino FROM pedido WHERE id_contenedor = 1";
 				        PreparedStatement selectStmt = con.prepareStatement(selectQuery);
 				        ResultSet rs = selectStmt.executeQuery();
 				        
