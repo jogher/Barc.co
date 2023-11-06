@@ -172,9 +172,27 @@ public class PantallaGerente {
 					
 					JOptionPane.showMessageDialog(null, mensajePedidos);
 					
+					 Integer idPedidoSeleccionado = null;
+
+				        String inputIdPedido = JOptionPane.showInputDialog("Ingrese el id del pedido para enviar: ");
+
+				        if (inputIdPedido != null && !inputIdPedido.isEmpty()) {
+				            try {
+				                idPedidoSeleccionado = Integer.parseInt(inputIdPedido);
+				            } catch (NumberFormatException e) {
+				            	 JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage());
+				                System.out.println("Error: La entrada no es un número válido.");
+				                // Manejar la excepción según sea necesario
+				            }
+				        } else {
+				        	JOptionPane.showMessageDialog(null, "no se ingreso Id del pedido ");
+				           // System.out.println("No se ingresó ningún valor para el ID del pedido.");
+				            return; // Salir del método si no hay entrada válida
+				        }
+					
 					// seleccioar un pedido y asignaler un contenedor 
-					int idPedidoSeleccionado = Integer.parseInt("Ingrese el id del pedido para enviar: ");
-					int idContenedorAsignado = Integer.parseInt("Ingrese el id del contenedor asignado: ");
+					//int idPedidoSeleccionado = Integer.parseInt("Ingrese el id del pedido para enviar: ");
+					int idContenedorAsignado = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el id del contenedor asignado: "));
 					
 					try {
 						String updateQuery = "UPDATE pedido SET estado = 'enviado', id_contenedor = ? WHERE id_pedido = ?";
