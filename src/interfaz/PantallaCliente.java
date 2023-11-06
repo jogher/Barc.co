@@ -86,14 +86,13 @@ public class PantallaCliente {
 				// seguimiento del pedido 
 
 				  String mensaje = "Pedidos realizados:\n";
-				  getClientId();
 				  try{
 		      			Conexion conexion = new Conexion(); 
 		    			Connection con = conexion.conectar();
 
 				    String query = "SELECT * FROM pedido WHERE id_cliente = ?";
 				    PreparedStatement stmt = con.prepareStatement(query);
-				    stmt.setInt(1, idCliente);
+				    stmt.setInt(1, getClientId());
 				    
 				    ResultSet rs = stmt.executeQuery();
 				    
@@ -132,25 +131,23 @@ public class PantallaCliente {
 			}
 		} while (op!=4);
 	}
-	private void getClientId() {
+	private int getClientId() {
 		Conexion conexion = new Conexion();
 		Connection con = conexion.conectar();
+		int idCliente = 0;
+		String emailCliente = Main.email;
 		try {
-			  String query = "SELECT * FROM cliente WHERE email = ?";
+			  String query = "SELECT id_cliente FROM cliente WHERE email = ?";
 	          PreparedStatement stmt = con.prepareStatement(query);
-	          stmt.setString(1, email);
+	          stmt.setString(1, emailCliente);
 	          ResultSet rs = stmt.executeQuery();
 	          if (rs.next()) {
-	        	this.idCliente = rs.getInt("id_cliente");
-	            this.nombre = rs.getString("Nombre");
-	            this.apellido = rs.getString("Apellido");
-	            this.contrasena = rs.getString("contrasena");
+	        	idCliente = rs.getInt("id_cliente"); 
 	          }
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage());
 		}
-		
-
+		return idCliente;
 	}
 	
 	private double obtenerPrecioProducto(int idProducto){
@@ -244,44 +241,49 @@ public class PantallaCliente {
 	}
 	
 	private void realizarPedido() {
-  	  try {
-        Pedido pedido = new Pedido(1, null, "en proceso");
-        pedido.setProductos(carrito);
-        getClientId();
-        for(Producto p : carrito) {
-
-        	  int idProducto = p.getId();
-        	  int cantidad = p.getStock();
-        	  int idPedido = 0;
-      			Conexion conexion = new Conexion(); 
-    			Connection con = conexion.conectar();
-        		// Insertar pedido
-    			String query = "INSERT INTO pedido (id_pedido, id_producto, cant_producto, id_cliente, id_contenedor, id_gerente, estado) VALUES (?, ?, ?, ?, ?,?, ?)";               
-            	  PreparedStatement stmt = con.prepareStatement(query);
-            	  
-            	  stmt.setInt(1, idPedido); 
-            	  stmt.setInt(2, idProducto);
-            	  stmt.setInt(3, cantidad); 
-            	  stmt.setInt(4, idCliente);
-            	  stmt.setInt(5, 1); // id_contenedor por defecto se puso como 1 debido a las fk constraints
-            	  stmt.setInt(6, 1); // id_gerente por defecto se puso como 1 debido a las fk constraints
-            	  stmt.setString(7, "en proceso"); // por defecto se puso como "en proceso" porque es el estado inicial
-            	  stmt.executeUpdate();
-    	          }
-        StringBuilder pedidoInfo = new StringBuilder("Detalles del Pedido:\n");
-        pedidoInfo.append("ID del pedido ").append(pedido.getId()).append("\n");
-        pedidoInfo.append("Estado: ").append(pedido.getEstado()).append("\n");
-        
-        pedidoInfo.append("Productos:\n");
-        for (Producto producto : carrito) {
-        	 pedidoInfo.append("Nombre: ").append(producto.getNombre()).append("\n");
-        	 pedidoInfo.append("Cantidad: ").append(producto.getStock()).append("\n");
-        	 pedidoInfo.append("Precio: $").append(producto.getPrecio()*producto.getStock()).append("\n");
-        	 pedidoInfo.append("---------------------------\n");
-        }
-        JOptionPane.showMessageDialog(null, pedidoInfo.toString(), "Detalles del pedido ", JOptionPane.INFORMATION_MESSAGE);
-        
-        // vaciar carrito
+  	  	String destino = JOptionPane.showInputDialog("Ingrese el destino para el pedido: ");
+  	  	Conexion conexion = new Conexion(); 
+		Connection con = conexion.conectar();
+		
+		try {
+	        Pedido pedido = new Pedido(1, null, "en proceso");
+	        pedido.setProductos(carrito);
+	        
+	        
+	        for(Producto p : carrito) {
+	
+	        	  int idProducto = p.getId();
+	        	  int cantidad = p.getStock();
+	        	  int idPedido = 0;
+	      			
+	        		// Insertar pedido
+	    			 String query = "INSERT INTO pedido (id_pedido, cant_producto, estado, destino, id_contenedor, id_producto, id_gerente, id_cliente) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";               
+	    			 PreparedStatement stmt = con.prepareStatement(query);
+	            	  
+	            	  stmt.setInt(1, idPedido); 
+	            	  stmt.setInt(2, cantidad);
+	            	  stmt.setString(3, "en proceso"); // por defecto se puso como "en proceso" porque es el estado inicial
+	            	  stmt.setString(4, destino);
+	            	  stmt.setInt(5, 1); // id_contenedor por defecto se puso como 1 debido a las fk constraints
+	            	  stmt.setInt(6, idProducto); 
+	            	  stmt.setInt(7,1 );// id_gerente por defecto se puso como 1 debido a las fk constraints 
+	            	  stmt.setInt(8, getClientId());
+	            	  stmt.executeUpdate();
+	    	          }
+	        StringBuilder pedidoInfo = new StringBuilder("Detalles del Pedido:\n");
+	        pedidoInfo.append("ID del pedido ").append(pedido.getId()).append("\n");
+	        pedidoInfo.append("Estado: ").append(pedido.getEstado()).append("\n");
+	        
+	        pedidoInfo.append("Productos:\n");
+	        for (Producto producto : carrito) {
+	        	 pedidoInfo.append("Nombre: ").append(producto.getNombre()).append("\n");
+	        	 pedidoInfo.append("Cantidad: ").append(producto.getStock()).append("\n");
+	        	 pedidoInfo.append("Precio: $").append(producto.getPrecio()*producto.getStock()).append("\n");
+	        	 pedidoInfo.append("---------------------------\n");
+	        }
+	        JOptionPane.showMessageDialog(null, pedidoInfo.toString(), "Detalles del pedido ", JOptionPane.INFORMATION_MESSAGE);
+	        
+	        // vaciar carrito
         }
     		 catch (Exception e) {
     			JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage());
