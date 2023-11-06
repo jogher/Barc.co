@@ -154,12 +154,48 @@ public class PantallaGerente {
 					
 					break;
 				case 4: 
+					//pedidos en proceso pendiendes de envio
+					String mensajePedidos = "Pedidos pendientes: \n";
+					try {
+						String query = "SELECT * FROM pedido WHERE estado = 'en proceso'";
+						 PreparedStatement stmtp = con.prepareStatement(query);
+						 ResultSet rs = stmtp.executeQuery();
+						 
+						 while (rs.next()) {
+							 int idPedido = rs.getInt("id_pedido");
+							 String destino = rs.getString("destino");
+							 mensajePedidos += "Pedido Nro " + idPedido + " - Destino: " + destino + "\n";
+						 }
+					} catch (SQLException e) {
+						JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage());						 
+					}
+					
+					JOptionPane.showMessageDialog(null, mensajePedidos);
+					
+					// seleccioar un pedido y asignaler un contenedor 
+					int idPedidoSeleccionado = Integer.parseInt("Ingrese el id del pedido para enviar: ");
+					int idContenedorAsignado = Integer.parseInt("Ingrese el id del contenedor asignado: ");
+					
+					try {
+						String updateQuery = "UPDATE pedido SET estado = 'enviado', id_contenedor = ? WHERE id_pedido = ?";
+						PreparedStatement updateStmt = con.prepareStatement(updateQuery);
+						updateStmt.setInt(1, idContenedorAsignado);
+						updateStmt.setInt(2, idPedidoSeleccionado);
+						updateStmt.executeUpdate();
+						
+						 JOptionPane.showMessageDialog(null, "Pedido enviado con exito ");
+					} catch (SQLException e) {
+						 JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage());						
+					}
+
+					break;
+				case 5: 
 					JOptionPane.showMessageDialog(null, "Salir");
 					break;
 				default:
 				break;		
 			}
-		} while (op !=4);
+		} while (op !=5);
 		
 			
 	}
