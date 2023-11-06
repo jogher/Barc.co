@@ -114,6 +114,7 @@ public class PantallaCliente {
 				    
 				  } catch(SQLException e){
 						JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage());
+						e.printStackTrace(); 
 				  }
 				  
 				  JOptionPane.showMessageDialog(null, mensaje);
@@ -255,7 +256,7 @@ public class PantallaCliente {
       			Conexion conexion = new Conexion(); 
     			Connection con = conexion.conectar();
         		// Insertar pedido
-    			String query = "INSERT INTO pedido (id_pedido, id_producto, cant_producto, id_cliente, id_contenedor, id_gerente, estado) VALUES (?, ?, ?, ?, ?, ?, ?)";               
+    			String query = "INSERT INTO pedido (id_pedido, id_producto, cant_producto, id_cliente, id_contenedor, id_gerente, estado) VALUES (?, ?, ?, ?, ?,?, ?)";               
             	  PreparedStatement stmt = con.prepareStatement(query);
             	  
             	  stmt.setInt(1, idPedido); 
