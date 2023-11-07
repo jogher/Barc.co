@@ -39,98 +39,63 @@ public class PantallaCliente {
 			op= JOptionPane.showOptionDialog(null, "Menu Pedidos", null, 0, 0, null, Opciones, Opciones[0]);
 			switch (op) {
 			case 0:
-				
 				ArrayList<Producto> productosDisponibles = obtenerProductos();
 				mostrarProductos(productosDisponibles);
 				agregarProductosCarrito(productosDisponibles);
 				break;
-			case 1:
 				
+			case 1:
 				if (carrito.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Debe agregar al menos un prodcuto al carrito");
 				} else {
 					realizarPedido();
-				
 				}
-				
-				
-				/*Pedido pedido1 = new Pedido(1, null, "en proceso");
-				
-				ArrayList <Producto> productos = new ArrayList<>();
-				
-				Producto producto1 = new Producto(1,"leche",2.6, 300,2, null);
-				productos.add(producto1);
-				
-				Producto producto2 = new Producto(2,"azucar",1.5,100,3,null);
-				productos.add(producto2);
-				
-				pedido1.setProductos(productos);
-				
-				String pedidoInfo = "Detalles del Pedido: \n";
-				pedidoInfo += "ID del pedido " + pedido1.getId() + "\n";
-				pedidoInfo += "Estado: " + pedido1.getEstado() + "\n";
-				
-				pedidoInfo += "Productos:\n";
-			    for (Producto producto : pedido1.getProductos()) {
-			        pedidoInfo += "Nombre: " + producto.getNombre() + "\n";
-			        pedidoInfo += "Cantidad: " + producto.getTamano() + "\n";
-			        pedidoInfo += "Precio: " + producto.getPrecio() + "\n";
-			        pedidoInfo += "---------------------------\n";
-			    }
-			    JOptionPane.showMessageDialog(null, pedidoInfo, "Detalles del pedido ", JOptionPane.INFORMATION_MESSAGE);*/
-			    	
-
-				
 				break;
+				
 			case 2:
 				// seguimiento del pedido 
-
 				  String mensaje = "Pedidos realizados:\n";
 				  try{
 		      			Conexion conexion = new Conexion(); 
 		    			Connection con = conexion.conectar();
-
-				    String query = "SELECT * FROM pedido WHERE id_cliente = ?";
-				    PreparedStatement stmt = con.prepareStatement(query);
-				    stmt.setInt(1, getClientId());
-				    
-				    ResultSet rs = stmt.executeQuery();
-				    
-				    while(rs.next()){
-				    
-				      int idPedido = rs.getInt("id_pedido");
-				      String estado = rs.getString("estado");
-				      int idProducto = rs.getInt("id_producto"); 
-				      int cantidad = rs.getInt("cant_producto");
-
-				      double precio = obtenerPrecioProducto(idProducto);
-				      
-				      double total = cantidad * precio;
-				      
-				      mensaje += "Pedido N° " + idPedido + " - " + estado + " - $" + total + "\n";
-
-				    }
-				    
+					    String query = "SELECT * FROM pedido WHERE id_cliente = ?";
+					    PreparedStatement stmt = con.prepareStatement(query);
+					    stmt.setInt(1, getClientId());
+					    ResultSet rs = stmt.executeQuery();
+					    
+					    while(rs.next()){
+					      int idPedido = rs.getInt("id_pedido");
+					      String estado = rs.getString("estado");
+					      int idProducto = rs.getInt("id_producto"); 
+					      int cantidad = rs.getInt("cant_producto");
+					      double precio = obtenerPrecioProducto(idProducto);
+					      double total = cantidad * precio;
+					      mensaje += "Pedido N° " + idPedido + " - " + estado + " - $" + total + "\n";
+					    } 
 				  } catch(SQLException e){
 						JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage());
 						e.printStackTrace(); 
 				  }
-				  
 				  JOptionPane.showMessageDialog(null, mensaje);
-
 				break;
-			case 3:
-				JOptionPane.showMessageDialog(null, "Cancelar Pedido \n"
-						+ "Seleccione pedido");
 				
+			case 3:
+				cancelarPedido();
 				break;
 			case 4:
 				JOptionPane.showMessageDialog(null, "Salir");
+				
 			default:
+				
 				break;
-			}
+			}			
 		} while (op!=4);
 	}
+	
+	
+	
+	
+	
 	private int getClientId() {
 		Conexion conexion = new Conexion();
 		Connection con = conexion.conectar();
@@ -290,6 +255,58 @@ public class PantallaCliente {
     		}
   	 
      }
+	
+	
+	private void cancelarPedido() {
+		String mensaje = "Pedidos:\n";
+		int idPedido = 0;
+		int idProducto = 0;
+		String nombre = "";
+		int cantProducto = 0;
+		 //MUESTRO LOS PEDIDOS QUE POSEE EL CLIENTE
+		  try{
+    			Conexion conexion = new Conexion(); 
+    			Connection con = conexion.conectar();
+			    String query = "SELECT id_pedido, id_producto, cant_producto FROM pedido WHERE id_cliente = ?";
+			    PreparedStatement stmt = con.prepareStatement(query);
+			    stmt.setInt(1, getClientId());
+			    ResultSet rs = stmt.executeQuery();
+			    
+			    while(rs.next()){
+				      idPedido = rs.getInt("id_pedido");
+				      idProducto = rs.getInt("id_producto"); 
+				      cantProducto = rs.getInt("cant_producto");
+				      
+				      String query2 = "SELECT nombre FROM producto WHERE id_producto = ?";
+					  PreparedStatement stmt2 = con.prepareStatement(query2);
+					  stmt2.setInt(1, idProducto);
+					  ResultSet rs2 = stmt2.executeQuery();
+					  while(rs2.next()) {
+					    	nombre = rs2.getString("nombre");
+					    	mensaje += "Pedido N° " + idPedido + " - "+nombre+" cantidad: "+cantProducto+"\n";  
+					    }
+			      } 
+			        
+		  } catch(SQLException e){
+				JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage());
+				e.printStackTrace(); 
+		  }
+		  JOptionPane.showMessageDialog(null, mensaje);
+		  
+		  idPedido = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el id del pedido que desea cancelar: "));
+		  try {
+			  Conexion conexion = new Conexion(); 
+  			  Connection con = conexion.conectar();
+  			  String sql = "DELETE FROM pedido WHERE id_pedido = ?";
+  			  PreparedStatement stmt = con.prepareStatement(sql);
+  			  stmt.setInt(1, idPedido);
+  			  stmt.executeUpdate();
+  			  JOptionPane.showMessageDialog(null, "Se ha cancelado el pedido correctamente!");
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage());
+			e.printStackTrace();
+		}
+	}
 }
         
 
