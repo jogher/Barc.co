@@ -93,57 +93,102 @@ public class Main{
 						switch (tipoUsuario) {
 							case 0:
 								tipo = "Gerente";
+								String apellido = JOptionPane.showInputDialog("Ingrese su apellido");
+								
+								try {
+									Conexion conexion = new Conexion();				 
+									Connection con = conexion.conectar();
+									
+									String query = "INSERT INTO gerente (nombre, apellido, email, contrasena) VALUES (?,?,?,?)";
+									PreparedStatement stmt = con.prepareStatement(query);
+									stmt.setString(1, nombre);
+									stmt.setString(2, apellido);
+									stmt.setString(3, nuevoMail);
+									stmt.setString(4, nuevaContrasena);
+									
+									int datosInsertados = stmt.executeUpdate();
+									if (datosInsertados >0) {
+										JOptionPane.showMessageDialog(null, " Nuevo usuario registrado como " + tipo);
+									}else {
+										JOptionPane.showMessageDialog(null, "No se puedo registrar el usuario");
+									}		
+									stmt.close();
+									con.close();
+									
+								} catch (SQLException e ) {
+									JOptionPane.showMessageDialog(null, "Error de conexión o de base de datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+									e.printStackTrace();
+								}
 								break;
 							case 1:
 								tipo = "Cliente";
+								apellido = JOptionPane.showInputDialog("Ingrese su apellido");
+								String dni = JOptionPane.showInputDialog("Ingrese su numero de documento");
+								String telefono = JOptionPane.showInputDialog("Ingrese su numero de telefono");
+								
+								try {
+									Conexion conexion = new Conexion();				 
+									Connection con = conexion.conectar();
+									
+									String query = "INSERT INTO cliente (nombre, apellido, dni, telefono, email, contrasena) VALUES (?,?,?,?,?,?)";
+									PreparedStatement stmt = con.prepareStatement(query);
+									stmt.setString(1, nombre);
+									stmt.setString(2, apellido);
+									stmt.setString(3, dni);
+									stmt.setString(4, telefono);
+									stmt.setString(5, nuevoMail);
+									stmt.setString(6, nuevaContrasena);
+									
+									int datosInsertados = stmt.executeUpdate();
+									if (datosInsertados >0) {
+										JOptionPane.showMessageDialog(null, " Nuevo usuario registrado como " + tipo);
+									}else {
+										JOptionPane.showMessageDialog(null, "No se puedo registrar el usuario");
+									}		
+									stmt.close();
+									con.close();
+									
+								} catch (SQLException e ) {
+									JOptionPane.showMessageDialog(null, "Error de conexión o de base de datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+									e.printStackTrace();
+								}
 								break;
 							case 2:
 								tipo = "Proveedor";
+								String rubro = JOptionPane.showInputDialog("Ingrese el rubro al que e dedica");
+								String ubicacion = JOptionPane.showInputDialog("Ingrese su ubicacion");
+								telefono = JOptionPane.showInputDialog("Ingrese su telefono");
+								
+								try {
+									Conexion conexion = new Conexion();				 
+									Connection con = conexion.conectar();
+									
+									String query = "INSERT INTO proveedor (nombre, rubro, ubicacion, telefono, email, contrasena) VALUES (?,?,?,?,?,?)";
+									PreparedStatement stmt = con.prepareStatement(query);
+									stmt.setString(1, nombre);
+									stmt.setString(2, rubro);
+									stmt.setString(3, ubicacion);
+									stmt.setString(4, telefono);
+									stmt.setString(5, nuevoMail);
+									stmt.setString(6, nuevaContrasena);
+									
+									int datosInsertados = stmt.executeUpdate();
+									if (datosInsertados >0) {
+										JOptionPane.showMessageDialog(null, " Nuevo usuario registrado como " + tipo);
+									}else {
+										JOptionPane.showMessageDialog(null, "No se puedo registrar el usuario");
+									}		
+									stmt.close();
+									con.close();
+									
+								} catch (SQLException e ) {
+									JOptionPane.showMessageDialog(null, "Error de conexión o de base de datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+									e.printStackTrace();
+								}
 								break;
 							default:
 								break;
 						}
-					
-					try {
-						Conexion conexion = new Conexion();				 
-						Connection con = conexion.conectar();
-						System.out.println("Conexión a la base de datos establecida: " + (con != null));
-
-						System.out.println("Tipo de usuario: " + tipo);
-						//mensaje de depruacion para ver si funciona 
-						System.out.println("Nombre: " + nombre);
-						System.out.println("Mail: " + nuevoMail);
-						System.out.println("Contraseña: " + nuevaContrasena);
-
-						
-						String query = "INSERT INTO " + tipo.trim() + " (nombre, email, contrasena) VALUES (?,?,?)";
-						PreparedStatement stmt = con.prepareStatement(query);
-						stmt.setString(1, nombre);
-						stmt.setString(2, nuevoMail);
-						stmt.setString(3, nuevaContrasena);
-						
-						System.out.println("Consulta SQL: " + query);
-						
-						
-						int datosInsertados = stmt.executeUpdate();
-						if (datosInsertados >0) {
-							JOptionPane.showMessageDialog(null, " Nuevo usuario registrado como " + tipo);
-							System.out.println("Filas afectadas: " + datosInsertados);
-							
-							
-						}else {
-							JOptionPane.showMessageDialog(null, "No se puedo registrar el usuario");
-						}
-						
-						stmt.close();
-						con.close();
-						
-					} catch (SQLException e ) {
-						JOptionPane.showMessageDialog(null, "Error de conexión o de base de datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-						e.printStackTrace();
-					}
-					
-					
 					break;
 				case 2: 
 					JOptionPane.showMessageDialog(null, "Salir");
