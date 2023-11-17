@@ -8,6 +8,7 @@ public class Producto {
 	private double precio;
 	private int stock;
 	private  Proveedor proveedor;
+	private String foto;
 	
 	public Producto(int id, String nombre, double tamano, double precio, int stock, Proveedor proveedor) {
 		super();
@@ -26,9 +27,28 @@ public class Producto {
 	        this.stock = stock;
 	       
 	    }
+	 	
 	
+	public Producto(int id, String nombre, double tamano, double precio, int stock, Proveedor proveedor, String foto) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.tamano = tamano;
+		this.precio = precio;
+		this.stock = stock;
+		this.proveedor = proveedor;
+		this.foto = foto;
+	}
 	
-	
+
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
 	public int getId() {
 		return id;
 	}
