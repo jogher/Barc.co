@@ -1,6 +1,7 @@
 package interfaz;
 import java.util.ArrayList;
 
+
 import javax.swing.JOptionPane;
 
 import DLL.Conexion;
@@ -22,7 +23,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Main{
+ public class Main{
 	
 
 	public static String email;
