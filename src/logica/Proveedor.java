@@ -17,7 +17,9 @@ public class Proveedor extends Persona{
 	private String ubicacion;
 	private ArrayList<Producto> productos;
 	
-	public Proveedor(int id, String nombre, String rubro, String ubicacion, String telefono, String email, String contrasena) {
+	public Proveedor(int id, String nombre, String rubro, 
+			String ubicacion, String telefono, String email, 
+			String contrasena) {
 		super(id,nombre,telefono,email,contrasena);
 		this.rubro = rubro;
 		this.ubicacion = ubicacion;
