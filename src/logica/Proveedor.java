@@ -1,6 +1,7 @@
 package logica;
 
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -26,8 +27,14 @@ public class Proveedor extends Persona{
 		this.productos = new ArrayList<Producto>();
 	}
 	
+	
+
 	public Proveedor() {
+		super();
+		
 	}
+
+
 
 	public String getRubro() {
 		return rubro;
