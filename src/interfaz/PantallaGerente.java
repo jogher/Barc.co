@@ -1,6 +1,8 @@
 package interfaz;
 
-import logica.Gerente;
+
+
+import logica.Gerente; 
 import logica.Producto;
 
 import java.sql.Connection;
@@ -17,6 +19,8 @@ import DLL.Conexion;
 import logica.Pedido;
 
 public class PantallaGerente {
+	
+
 
 	public void Menu() {
 		Conexion conexion = new Conexion(); 
@@ -48,6 +52,8 @@ public class PantallaGerente {
 				"Contenedores",
 				"Barcos",
 				"Asignar Pedido-Contenedor",
+				"Pedidos en proceso de envio",
+				"Registrar pedido con proveedor",
 				"Salir"
 		};
 			
@@ -172,6 +178,19 @@ public class PantallaGerente {
 					
 					JOptionPane.showMessageDialog(null, mensajePedidos);
 					
+					 String nuevoDestino = JOptionPane.showInputDialog("Ingrese el nuevo destino para los pedidos pendientes:");
+					// agregar destino a los pedidos pendientes
+					try {
+				        String updateQuery = "UPDATE pedido SET destino = ? WHERE estado = 'en proceso'";
+				        PreparedStatement updateStmt = con.prepareStatement(updateQuery);
+				        updateStmt.setString(1, nuevoDestino);
+				        updateStmt.executeUpdate();
+				        
+				        JOptionPane.showMessageDialog(null, "Se ha actualizado el destino para los pedidos pendientes.");
+				    } catch (SQLException e) {
+				        JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage());
+				    }
+					
 					 Integer idPedidoSeleccionado = null;
 
 				        String inputIdPedido = JOptionPane.showInputDialog("Ingrese el id del pedido para enviar: ");
@@ -192,7 +211,7 @@ public class PantallaGerente {
 					
 					// seleccioar un pedido y asignaler un contenedor 
 					//int idPedidoSeleccionado = Integer.parseInt("Ingrese el id del pedido para enviar: ");
-					int idContenedorAsignado = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el id del contenedor asignado: "));
+					int idContenedorAsignado = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el id del contenedor asignado: ").trim());
 					
 					try {
 						String updateQuery = "UPDATE pedido SET estado = 'enviado', id_contenedor = ? WHERE id_pedido = ?";
@@ -201,19 +220,44 @@ public class PantallaGerente {
 						updateStmt.setInt(2, idPedidoSeleccionado);
 						updateStmt.executeUpdate();
 						
-						 JOptionPane.showMessageDialog(null, "Pedido enviado con exito ");
+						 JOptionPane.showMessageDialog(null, "Pedido enviado con exito" );
 					} catch (SQLException e) {
 						 JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage());						
 					}
 
 					break;
 				case 5: 
+				    // Registrar nuevo producto con proveedor
+				    int idProducto = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el id del producto:"));
+				    String nombreProducto = JOptionPane.showInputDialog("Ingrese el nombre del producto:");
+				    double tamanoProducto = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el tamaño del producto:"));
+				    double precioProducto = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el precio del producto:"));
+				    int stockProducto = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el stock del producto:"));
+
+				    // Solicitar datos del proveedor
+				    int idProNu = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el id del proveedor:"));
+				    String nombrePro = JOptionPane.showInputDialog("Ingrese el nombre del proveedor:");
+				    // Otros datos del proveedor
+
+				    // Crea el objeto Proveedor
+				    Proveedor proveedorNuevo = new Proveedor();
+
+				    // Crea el objeto Producto con los datos ingresados
+				    Producto nuevoProducto = new Producto(idProducto, nombreProducto, tamanoProducto, precioProducto, stockProducto, proveedorNuevo);
+
+				    // Registra el producto en la base de datos o realiza las acciones necesarias
+				    // ...
+
+				    JOptionPane.showMessageDialog(null, "Se ha registrado el producto con éxito.");
+				    break;
+
+				case 6: 
 					JOptionPane.showMessageDialog(null, "Salir");
 					break;
 				default:
 				break;		
 			}
-		} while (op !=5);
+		} while (op != 5);
 		
 			
 	}
