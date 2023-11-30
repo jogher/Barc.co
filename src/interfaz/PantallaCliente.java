@@ -200,7 +200,7 @@ public class PantallaCliente {
 		return null;	
 	}
 	
-	private void realizarPedido() {
+	public void realizarPedido(String destino) {
   	  	Conexion conexion = new Conexion(); 
 		Connection con = conexion.conectar();
 		
