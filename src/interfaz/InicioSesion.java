@@ -43,7 +43,7 @@ import java.sql.SQLException;
 public class InicioSesion extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private static String email;
+	static String email;
 	private JPanel contentPane;
 	private JTextField txtCorreo;
 	private JPasswordField passwordField;
@@ -51,8 +51,7 @@ public class InicioSesion extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
+
 			public void run() {
 				try {
 					InicioSesion frame = new InicioSesion();
@@ -61,8 +60,6 @@ public class InicioSesion extends JFrame {
 					e.printStackTrace();
 				}
 			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -107,21 +104,24 @@ public class InicioSesion extends JFrame {
 			     if (validador.IniciarSesion(correo, contrasena, "gerente")) {
 			         Gerente verificador = new Gerente();
 			         verificador.Mostrar(correo, contrasena);
-			         PantallaGerente interfazGerente = new PantallaGerente();
+			         MenuGerente menugerente = new MenuGerente();
 			         InicioSesion.email = correo;
-			         interfazGerente.Menu();
+			         menugerente.run();
+			         dispose(); 
 			        } else if (validador.IniciarSesion(correo, contrasena, "cliente")) {
 			         Cliente verificador = new Cliente();
 			         verificador.Mostrar(correo, contrasena);
-			         PantallaCliente interfazCliente = new PantallaCliente();
+			         MenuCliente menucliente = new MenuCliente();
 			         InicioSesion.email = correo;
-			         interfazCliente.Menu();
+			         menucliente.run();
+			         dispose(); 
 			        } else if (validador.IniciarSesion(correo, contrasena, "proveedor")) {
 			          Proveedor verificador = new Proveedor();
 			          verificador.Mostrar(correo, contrasena);
-			          PantallaProveedor interfazProveedor = new PantallaProveedor();
-			          InicioSesion.email = correo;
-			          interfazProveedor.Menu();
+			          MenuProveedor menuproveedor = new MenuProveedor();
+				      InicioSesion.email = correo;
+				      menuproveedor.run();
+				      dispose(); 
 			        } else {
 			        	JLabel mensajeError = new JLabel("Email o Contrasena incorrecto. No se pudo iniciar sesion");
 			        	mensajeError.setForeground(Color.RED);	
@@ -182,10 +182,11 @@ public class InicioSesion extends JFrame {
 		contentPane.add(passwordField);
 		
 		JLabel lblLogo = new JLabel("");
-		lblLogo.setIcon(new ImageIcon("D:\\DaVinci\\ProgramacionAvanzada\\Barc.co\\LogoBarc_co1.png"));
+		lblLogo.setIcon(new ImageIcon(InicioSesion.class.getResource("/img/LogoBarc_co1.png")));
 		lblLogo.setBounds(10, 11, 120, 120);
 		contentPane.add(lblLogo);
 		
 		
 	}
+
 }

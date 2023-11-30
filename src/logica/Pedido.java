@@ -3,23 +3,47 @@ package logica;
 import java.util.ArrayList;
 
 public class Pedido {
-	private int id;
-	private ArrayList<Producto> productos;
-	private Contenedor contenedor;
+	private int id_pedido;
+	private int cant_productos;
 	private String estado;
-	public Pedido(int id, Contenedor contenedor, String estado) {
-		super();
-		this.id = id;
-		this.contenedor = contenedor;
-		this.estado = estado;
+	private String destino;
+	private ArrayList<Producto> productos;
+	private int id_contenedor;
 
-	this.productos = new ArrayList<>();
+	private int id_cliente;
+	
+	public Pedido(int id_pedido, int cant_productos, String estado, String destino, ArrayList<Producto> productos, int id_contenedor, int id_cliente) {
+		super();
+		this.id_pedido = id_pedido;
+		this.cant_productos = cant_productos;
+		this.estado = estado;
+		this.destino = destino;
+		this.id_contenedor = id_contenedor;
+		this.productos = productos;
+		this.id_cliente = id_cliente;
+		this.productos = new ArrayList<>();
 	}
-	public int getId() {
-		return id;
+	
+	public Pedido() {
+		
 	}
-	public void setId(int id) {
-		this.id = id;
+	
+	
+	public Pedido(int id_pedido, int cant_productos, String estado, String destino, int id_contenedor, int id_producto) {
+		super();
+		this.id_pedido = id_pedido;
+		this.cant_productos = cant_productos;
+		this.estado = estado;
+		this.destino = destino;
+		this.id_contenedor = id_contenedor;
+		this.productos = new ArrayList<>();
+	}
+
+	public int getIdPedido() {
+		return id_pedido;
+	}
+	public void setIdPedido(int id_pedido) {
+		this.id_pedido = id_pedido;
 	}
 	public ArrayList<Producto> getProductos() {
 		return productos;
@@ -27,12 +51,8 @@ public class Pedido {
 	public void setProductos(ArrayList<Producto> productos) {
 		this.productos = productos;
 	}
-	public Contenedor getContenedor() {
-		return contenedor;
-	}
-	public void setContenedor(Contenedor contenedor) {
-		this.contenedor = contenedor;
-	}
+
+	
 	public String getEstado() {
 		return estado;
 	}
@@ -48,8 +68,36 @@ public class Pedido {
 	}
 	@Override
 	public String toString() {
-		return "Pedido [id=" + id + ", productos=" + productos + ", contenedor=" + contenedor + ", estado=" + estado
+		return "Pedido [id=" + id_pedido + ", productos=" + productos + ", contenedor=" + id_contenedor + ", estado=" + estado
 				+ "]";
+	}
+	public int getCant_productos() {
+		return cant_productos;
+	}
+	public void setCant_productos(int cant_productos) {
+		this.cant_productos = cant_productos;
+	}
+	public String getDestino() {
+		return destino;
+	}
+	public void setDestino(String destino) {
+		this.destino = destino;
+	}
+
+
+	public int getId_cliente() {
+		return id_cliente;
+	}
+	public void setId_cliente(int id_cliente) {
+		this.id_cliente = id_cliente;
+	}
+	
+	public int getId_contenedor() {
+		return id_contenedor;
+	}
+
+	public void setId_contenedor(int id_contenedor) {
+		this.id_contenedor = id_contenedor;
 	}
 
 

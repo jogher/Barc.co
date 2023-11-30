@@ -26,11 +26,11 @@ public class PantallaCliente {
 	String apellido;
 	String contrasena;
 	
-	private ArrayList <Producto> carrito = new 	ArrayList<>();
+	public ArrayList <Producto> carrito = new 	ArrayList<>();
 
 	public void Menu() {
 
-		String[] Opciones=
+		/*String[] Opciones=
 			{
 				"Agregar Producto",	"Realizar pedido","Seguimiento de pedidos","Cancelar pedido","Salir"
 			};
@@ -41,7 +41,7 @@ public class PantallaCliente {
 			case 0:
 				ArrayList<Producto> productosDisponibles = obtenerProductos();
 				mostrarProductos(productosDisponibles);
-				agregarProductosCarrito(productosDisponibles);
+				//agregarProductosCarrito(productosDisponibles);
 				break;
 				
 			case 1:
@@ -90,17 +90,17 @@ public class PantallaCliente {
 				break;
 			}			
 		} while (op!=4);
-	}
+	*/}
 	
 	
 	
 	
 	
-	private int getClientId() {
+	public int getClientId() {
 		Conexion conexion = new Conexion();
 		Connection con = conexion.conectar();
 		int idCliente = 0;
-		String emailCliente = Main.email;
+		String emailCliente = InicioSesion.email;
 		try {
 			  String query = "SELECT id_cliente FROM cliente WHERE email = ?";
 	          PreparedStatement stmt = con.prepareStatement(query);
@@ -115,7 +115,7 @@ public class PantallaCliente {
 		return idCliente;
 	}
 	
-	private double obtenerPrecioProducto(int idProducto){
+	public double obtenerPrecioProducto(int idProducto){
 		Conexion conexion = new Conexion();
 		Connection con = conexion.conectar();
 		  double precio = 0;
@@ -138,7 +138,7 @@ public class PantallaCliente {
 		  return precio;
 
 		}
-	private ArrayList<Producto> obtenerProductos(){
+	public ArrayList<Producto> obtenerProductos(){
 		
 		ArrayList<Producto> productos = new ArrayList<>();
 		
@@ -166,7 +166,7 @@ public class PantallaCliente {
 		return productos;
 	}
 	
-	private void mostrarProductos(ArrayList<Producto> productos) {
+	public void mostrarProductos(ArrayList<Producto> productos) {
 		StringBuilder mensaje = new StringBuilder ("productos disponibles:\n");
 		for (Producto producto : productos) {
 			mensaje.append(producto.getId()).append(". ").append(producto.getNombre()).append(" - Precio: $")
@@ -175,28 +175,23 @@ public class PantallaCliente {
 		 JOptionPane.showMessageDialog(null, mensaje.toString());
 	}
 	
-	private void agregarProductosCarrito(ArrayList<Producto>productos) {
-		try {
-			int idProducto = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del producto para agregar al carrito (0 para finalizar)"));
-			while (idProducto !=0) {
-				int cantidad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad del producto:"));
-				Producto productoSeleccionado = encontrarProductoPorID(productos, idProducto);
-				productoSeleccionado.setStock(cantidad); 
-				if (productoSeleccionado != null) {
-					carrito.add(productoSeleccionado);
-					JOptionPane.showMessageDialog(null, "Producto agregado al carrito");
-				} else {
-					JOptionPane.showMessageDialog(null, "Producto no encontrado");
-				}
-				  idProducto = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del producto para agregar al carrito (0 para finalizar)"));
-				  
-			}
-		} catch  (NumberFormatException e) {
-			 JOptionPane.showMessageDialog(null, "Por favor, ingrese un número válido.");
-		}
+	public void agregarProductosCarrito(ArrayList<Producto> productos, int idProducto, int cantidad) {
+	    try {
+	        Producto productoSeleccionado = encontrarProductoPorID(productos, idProducto);
+	        if (productoSeleccionado != null) {
+	            productoSeleccionado.setStock(cantidad);
+	            carrito.add(productoSeleccionado);
+	            JOptionPane.showMessageDialog(null, "Producto agregado al carrito");
+	        } else {
+	            JOptionPane.showMessageDialog(null, "No se encontró el producto.");
+	        }
+	    } catch (NumberFormatException e) {
+	        JOptionPane.showMessageDialog(null, "Por favor, ingrese un número válido.");
+	    }
 	}
+
 	
-	private Producto encontrarProductoPorID(ArrayList<Producto> productos, int id) {
+	public Producto encontrarProductoPorID(ArrayList<Producto> productos, int id) {
 		for  (Producto producto : productos) {
 			if  (producto.getId() == id) {
 				return producto;
@@ -206,12 +201,11 @@ public class PantallaCliente {
 	}
 	
 	private void realizarPedido() {
-  	  	String destino = JOptionPane.showInputDialog("Ingrese el destino para el pedido: ");
   	  	Conexion conexion = new Conexion(); 
 		Connection con = conexion.conectar();
 		
 		try {
-	        Pedido pedido = new Pedido(1, null, "en proceso");
+	        Pedido pedido = new Pedido();
 	        pedido.setProductos(carrito);
 	        
 	        
@@ -236,7 +230,7 @@ public class PantallaCliente {
 	            	  stmt.executeUpdate();
 	    	          }
 	        StringBuilder pedidoInfo = new StringBuilder("Detalles del Pedido:\n");
-	        pedidoInfo.append("ID del pedido ").append(pedido.getId()).append("\n");
+	        pedidoInfo.append("ID del pedido ").append(pedido.getIdPedido()).append("\n");
 	        pedidoInfo.append("Estado: ").append(pedido.getEstado()).append("\n");
 	        
 	        pedidoInfo.append("Productos:\n");
@@ -257,43 +251,7 @@ public class PantallaCliente {
      }
 	
 	
-	private void cancelarPedido() {
-		String mensaje = "Pedidos:\n";
-		int idPedido = 0;
-		int idProducto = 0;
-		String nombre = "";
-		int cantProducto = 0;
-		 //MUESTRO LOS PEDIDOS QUE POSEE EL CLIENTE
-		  try{
-    			Conexion conexion = new Conexion(); 
-    			Connection con = conexion.conectar();
-			    String query = "SELECT id_pedido, id_producto, cant_producto FROM pedido WHERE id_cliente = ?";
-			    PreparedStatement stmt = con.prepareStatement(query);
-			    stmt.setInt(1, getClientId());
-			    ResultSet rs = stmt.executeQuery();
-			    
-			    while(rs.next()){
-				      idPedido = rs.getInt("id_pedido");
-				      idProducto = rs.getInt("id_producto"); 
-				      cantProducto = rs.getInt("cant_producto");
-				      
-				      String query2 = "SELECT nombre FROM producto WHERE id_producto = ?";
-					  PreparedStatement stmt2 = con.prepareStatement(query2);
-					  stmt2.setInt(1, idProducto);
-					  ResultSet rs2 = stmt2.executeQuery();
-					  while(rs2.next()) {
-					    	nombre = rs2.getString("nombre");
-					    	mensaje += "Pedido N° " + idPedido + " - "+nombre+" cantidad: "+cantProducto+"\n";  
-					    }
-			      } 
-			        
-		  } catch(SQLException e){
-				JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage());
-				e.printStackTrace(); 
-		  }
-		  JOptionPane.showMessageDialog(null, mensaje);
-		  
-		  idPedido = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el id del pedido que desea cancelar: "));
+	public void cancelarPedido(int idPedido) {
 		  try {
 			  Conexion conexion = new Conexion(); 
   			  Connection con = conexion.conectar();
@@ -307,6 +265,35 @@ public class PantallaCliente {
 			e.printStackTrace();
 		}
 	}
+	
+	public ArrayList<Pedido> obtenerPedidosCliente(int idCliente) {
+	    ArrayList<Pedido> pedidos = new ArrayList<>();
+
+	    try {
+	        Conexion conexion = new Conexion();
+	        Connection con = conexion.conectar();
+	        String query = "SELECT * FROM pedido WHERE id_cliente = ?";
+	        PreparedStatement stmt = con.prepareStatement(query);
+	        stmt.setInt(1, idCliente);
+	        ResultSet rs = stmt.executeQuery();
+
+	        while (rs.next()) {
+	            int id_pedido = rs.getInt("id_pedido");
+	            int cantidad = rs.getInt("cant_producto");
+	            String estado = rs.getString("estado");
+	            String destino = rs.getString("destino");
+	            int id_contenedor = rs.getInt("id_contenedor");
+	            int id_producto = rs.getInt("id_producto");
+	            Pedido pedido = new Pedido(id_pedido, cantidad, estado, destino, id_contenedor, id_producto);
+	            pedidos.add(pedido);
+	        }
+	    } catch (SQLException e) {
+	        JOptionPane.showMessageDialog(null, "Error al obtener los pedidos del cliente: " + e.getMessage());
+	    }
+
+	    return pedidos;
+	}
+
 }
         
 
