@@ -275,11 +275,13 @@ public class PantallaGerente {
 
 				case 6: 
 					JOptionPane.showMessageDialog(null, "Salir");
+					InicioSesion inicioSesion = new InicioSesion();
+					inicioSesion.run();
 					break;
 				default:
 				break;		
 			}
-		} while (op != 5);
+		} while (op != 6);
 		
 			
 	}

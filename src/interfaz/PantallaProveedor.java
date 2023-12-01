@@ -153,6 +153,8 @@ public class PantallaProveedor {
 				break;
 			case 4:
 				JOptionPane.showMessageDialog(null, "Salir");
+				InicioSesion inicioSesion = new InicioSesion();
+				inicioSesion.run();
 				break;
 			default:
 				break;
