@@ -105,9 +105,10 @@ public class InicioSesion extends JFrame {
 			         Gerente verificador = new Gerente();
 			         verificador.Mostrar(correo, contrasena);
 			         PantallaGerente pantallaGerente = new PantallaGerente();
+			         InicioSesion.email = correo;
 			         pantallaGerente.Menu();
 			         //MenuGerente menugerente = new MenuGerente();
-			         InicioSesion.email = correo;
+			         
 			        // menugerente.run();
 			         dispose(); 
 			        } else if (validador.IniciarSesion(correo, contrasena, "cliente")) {
@@ -121,9 +122,10 @@ public class InicioSesion extends JFrame {
 			          Proveedor verificador = new Proveedor();
 			          verificador.Mostrar(correo, contrasena);
 			          PantallaProveedor pantallaProveedor = new PantallaProveedor();
+			          InicioSesion.email = correo;
 			          pantallaProveedor.Menu();
 				      //MenuProveedor menuproveedor = new MenuProveedor();
-				      InicioSesion.email = correo;
+				      
 				      //menuproveedor.run();
 				      dispose(); 
 			        } else {
