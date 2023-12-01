@@ -18,9 +18,29 @@ import javax.swing.JOptionPane;
 import DLL.Conexion;
 import logica.Pedido;
 
-public class PantallaGerente {
-	
 
+public class PantallaGerente {
+
+	
+	public void crearNuevoContenedor(int idContenedor,int capacidad,String color,int idBarco) {
+		Conexion conexion = new Conexion();
+		Connection con = conexion.conectar();
+		
+		PreparedStatement stmt;
+		String sql = "INSERT INTO contenedor (id_contenedor, capacidad, color, id_barco) VALUES (?, ?, ?, ?)";
+		try {
+			stmt = con.prepareStatement(sql);
+			stmt.setInt(1, idContenedor);
+			stmt.setInt(2, capacidad);
+			stmt.setString(3, color);
+			stmt.setInt(4, idBarco);
+			stmt.executeUpdate();
+			
+			JOptionPane.showMessageDialog(null, "Se ha agregado el contenedor");
+		} catch (SQLException e) {
+		      JOptionPane.showMessageDialog(null, "Error al crear contenedor: " + e.getMessage());
+		    }
+		  }
 
 	public void Menu() {
 		Conexion conexion = new Conexion(); 
@@ -47,6 +67,8 @@ public class PantallaGerente {
 		}
 		// opciones
 		
+		
+
 		String [] Opciones = {
 				"Contenedor nuevo",
 				"Contenedores",
