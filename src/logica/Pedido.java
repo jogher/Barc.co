@@ -9,6 +9,7 @@ public class Pedido {
 	private String destino;
 	private ArrayList<Producto> productos;
 	private int id_contenedor;
+	private Contenedor contenedor;
 
 	private int id_cliente;
 	
@@ -36,6 +37,15 @@ public class Pedido {
 		this.estado = estado;
 		this.destino = destino;
 		this.id_contenedor = id_contenedor;
+		this.productos = new ArrayList<>();
+	}
+	
+	public Pedido(int id_pedido, Contenedor contenedor, String estado) {
+		super();
+		this.id_pedido = id_pedido;
+		this.estado = estado;
+		this.destino = destino;
+		this.contenedor = contenedor;
 		this.productos = new ArrayList<>();
 	}
 
