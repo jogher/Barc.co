@@ -64,7 +64,7 @@ public class Registro extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblLogo = new JLabel("");
-		lblLogo.setIcon(new ImageIcon("D:\\DaVinci\\ProgramacionAvanzada\\Barc.co\\LogoBarc_co1.png"));
+		lblLogo.setIcon(new ImageIcon(Registro.class.getResource("/img/LogoBarc_co1.png")));
 		lblLogo.setBounds(10, 11, 120, 120);
 		contentPane.add(lblLogo);
 		
@@ -180,6 +180,20 @@ public class Registro extends JFrame {
 		contentPane.add(btnRegistrarse);
 		btnRegistrarse.setVisible(false);
 		
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.setFont(new Font("Franklin Gothic Book", Font.PLAIN, 14));
+		btnVolver.setBounds(909, 11, 89, 23);
+		contentPane.add(btnVolver);
+		btnVolver.setVisible(true);
+		
+		btnVolver.addActionListener(new  ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				InicioSesion inicioSesion=  new InicioSesion();
+				inicioSesion.run();
+				dispose();
+			}
+			});
+		
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"","Gerente", "Cliente", "Proveedor"}));
@@ -195,6 +209,8 @@ public class Registro extends JFrame {
 		lblRol.setFont(new Font("Franklin Gothic Book", Font.PLAIN, 14));
 		lblRol.setBounds(370, 130, 188, 14);
 		contentPane.add(lblRol);
+		
+		
 		
 		
 		
@@ -249,6 +265,9 @@ public class Registro extends JFrame {
 					                	lblMensaje.setText("No se pudo registrar el usuario");
 					                }
 					                
+					                InicioSesion inicioSesion = new InicioSesion();
+					                inicioSesion.run();
+									dispose();
 					                
 					                stmt.close();
 					                con.close();
@@ -305,13 +324,18 @@ public class Registro extends JFrame {
 					                } else {
 					                	lblMensaje.setText("No se pudo registrar el usuario");
 					                }
+					                
+					                InicioSesion inicioSesion = new InicioSesion();
+					                inicioSesion.run();
+									dispose();
+					                
 					                stmt.close();
 					                con.close();
 					    		} catch (SQLException ex) {
 					    			lblMensaje.setText("Error de conexión o de base de datos: " + ex.getMessage());
 					    			ex.printStackTrace();
 					    		}						
-								
+
 				    		}
 				    	});
 						break;
@@ -358,6 +382,11 @@ public class Registro extends JFrame {
 					                } else {
 					                	lblMensaje.setText("No se pudo registrar el usuario");
 					                }
+					                
+					                InicioSesion inicioSesion = new InicioSesion();
+					                inicioSesion.run();
+									dispose();
+					                
 					                stmt.close();
 					                con.close();
 					    		} catch (SQLException ex) {
