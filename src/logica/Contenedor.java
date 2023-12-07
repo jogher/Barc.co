@@ -7,13 +7,15 @@ public class Contenedor {
 	private int id;
 	private int capacidad;
 	private String color;
+	private int id_barco;
 	private Pedido pedido; // esto para almacenar el pedido en el contenedor 	
 	
-	public Contenedor(int id, int capacidad, String color) {
+	public Contenedor(int id, int capacidad, String color, int id_barco) {
 		super();
 		this.id = id;
 		this.capacidad = capacidad;
 		this.color = color;
+		this.id_barco = id_barco;
 	}
 	public Contenedor() {
 		super();
@@ -57,6 +59,12 @@ public class Contenedor {
 	    }
 		
 		
+	}
+	public int getId_barco() {
+		return id_barco;
+	}
+	public void setId_barco(int id_barco) {
+		this.id_barco = id_barco;
 	}
 	
 	
