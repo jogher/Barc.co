@@ -104,12 +104,9 @@ public class InicioSesion extends JFrame {
 			     if (validador.IniciarSesion(correo, contrasena, "gerente")) {
 			         Gerente verificador = new Gerente();
 			         verificador.Mostrar(correo, contrasena);
-			         PantallaGerente pantallaGerente = new PantallaGerente();
+			         MenuGerente menuGerente = new MenuGerente();
 			         InicioSesion.email = correo;
-			         pantallaGerente.Menu();
-			         //MenuGerente menugerente = new MenuGerente();
-			         
-			        // menugerente.run();
+			         menuGerente.run();
 			         dispose(); 
 			        } else if (validador.IniciarSesion(correo, contrasena, "cliente")) {
 			         Cliente verificador = new Cliente();

@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import logica.Proveedor;
+import logica.Barco;
 import logica.Contenedor;
 
 import javax.swing.JOptionPane;
@@ -75,7 +76,7 @@ public class PantallaGerente {
 				"Barcos",
 				"Asignar Pedido-Contenedor",
 				"Pedidos en proceso de envio",
-				"Registrar pedido con proveedor",
+				"Registrar producto con proveedor",
 				"Salir"
 		};
 			
@@ -282,7 +283,226 @@ public class PantallaGerente {
 				break;		
 			}
 		} while (op != 6);
-		
 			
 	}
+	
+	public ArrayList<Pedido> obtenerPedidos(){
+		
+		ArrayList<Pedido> pedidos = new ArrayList<>();
+		try {
+			Conexion conexion = new Conexion(); 
+			Connection con = conexion.conectar();
+			String query = "SELECT id_pedido, cant_producto, estado, destino, id_contenedor,id_producto, id_cliente From pedido";
+			 PreparedStatement stmt = con.prepareStatement(query);
+			 ResultSet rs = stmt.executeQuery();
+			 
+			 while (rs.next()) {
+				 int id = rs.getInt("id_pedido");
+				 int cant = rs.getInt("cant_producto");
+				 String estado = rs.getString("estado");
+				 String destino = rs.getString("destino");
+				 int id_contenedor = rs.getInt("id_contenedor");
+				 int id_producto = rs.getInt("id_producto");
+				 int id_cliente = rs.getInt("id_cliente");
+				 Pedido pedido = new Pedido(id, cant, estado, destino, id_contenedor, id_producto, id_cliente);
+				 pedidos.add(pedido);
+				
+			 }
+			
+		} catch (SQLException e) {
+			  JOptionPane.showMessageDialog(null, "Error al obtener productos de la base de datos: " + e.getMessage());
+		} 
+		return pedidos;
+	}
+	
+	public void actualizarPedido(int idPedido, int nuevaCantidad, String nuevoEstado, String nuevoDestino, int nuevoIdContenedor, int nuevoIdProducto, int nuevoIdCliente) {
+	    Conexion conexion = new Conexion();
+	    Connection con = conexion.conectar();
+
+	    try {
+	    	String updateQuery = "UPDATE pedido SET cant_producto=?, estado=?, destino=?, id_contenedor=?, id_producto=?, id_cliente=? WHERE id_pedido = ?";
+	    	PreparedStatement updateStmt = con.prepareStatement(updateQuery);
+
+	    	updateStmt.setInt(1, nuevaCantidad);
+	    	updateStmt.setString(2, nuevoEstado);
+	    	updateStmt.setString(3, nuevoDestino);
+	    	updateStmt.setInt(4, nuevoIdContenedor);
+	    	updateStmt.setInt(5, nuevoIdProducto);
+	    	updateStmt.setInt(6, nuevoIdCliente);
+	    	updateStmt.setInt(7, idPedido);
+
+	    	updateStmt.executeUpdate();
+
+
+	        JOptionPane.showMessageDialog(null, "Pedido actualizado exitosamente.");
+	    } catch (SQLException e) {
+	        JOptionPane.showMessageDialog(null, "Error al actualizar el pedido en la base de datos: " + e.getMessage());
+	    }
+	}
+	
+	
+	public ArrayList<Contenedor> obtenerContenedores(){
+		
+		ArrayList<Contenedor> contenedores = new ArrayList<>();
+		try {
+			Conexion conexion = new Conexion(); 
+			Connection con = conexion.conectar();
+			String query = "SELECT id_contenedor, capacidad, color, id_barco From contenedor";
+			 PreparedStatement stmt = con.prepareStatement(query);
+			 ResultSet rs = stmt.executeQuery();
+			 
+			 while (rs.next()) {
+				 int id_contenedor = rs.getInt("id_contenedor");
+				 int capacidad = rs.getInt("capacidad");
+				 String color = rs.getString("color");
+				 int id_barco = rs.getInt("id_barco");
+				 Contenedor contenedor = new Contenedor(id_contenedor, capacidad, color, id_barco);
+				 contenedores.add(contenedor);
+				
+			 }
+			
+		} catch (SQLException e) {
+			  JOptionPane.showMessageDialog(null, "Error al obtener productos de la base de datos: " + e.getMessage());
+		} 
+		return contenedores;
+	}
+
+	public void eliminarContenedor(int id_contenedor) {
+		 try {
+			  Conexion conexion = new Conexion(); 
+ 			  Connection con = conexion.conectar();
+ 			  String sql = "DELETE FROM contenedor WHERE id_contenedor = ?";
+ 			  PreparedStatement stmt = con.prepareStatement(sql);
+ 			  stmt.setInt(1, id_contenedor);
+ 			  stmt.executeUpdate();
+ 			  JOptionPane.showMessageDialog(null, "Se ha eliminado el contenedor correctamente!");
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	public void actualizarContenedor(int id_contenedor, int capacidad, String color, int id_barco) {
+	    Conexion conexion = new Conexion();
+	    Connection con = conexion.conectar();
+
+	    try {
+	    	String updateQuery = "UPDATE `contenedor` SET `capacidad`=?, `color`=?, `id_barco`=? WHERE `id_contenedor` = ?";
+	    	PreparedStatement updateStmt = con.prepareStatement(updateQuery);
+
+	    	updateStmt.setInt(1, capacidad);
+	    	updateStmt.setString(2, color);
+	    	updateStmt.setInt(3, id_barco);
+	    	updateStmt.setInt(4, id_contenedor);
+
+	    	updateStmt.executeUpdate();
+
+
+	        JOptionPane.showMessageDialog(null, "Contenedor actualizado exitosamente.");
+	    } catch (SQLException e) {
+	        JOptionPane.showMessageDialog(null, "Error al actualizar el contenedor en la base de datos: " + e.getMessage());
+	        e.printStackTrace();
+	    }
+	}
+	
+	public void agregarContenedor(int capacidad, String color) {
+		try {
+			Conexion conexion = new Conexion();
+		    Connection con = conexion.conectar();
+		    
+		    String query = "INSERT INTO contenedor (capacidad, color, id_barco) VALUES (?, ?, 1)";
+	    	PreparedStatement stmt = con.prepareStatement(query);
+	    	
+	    	stmt.setInt(1,capacidad);
+	    	stmt.setString(2,color);
+	    	stmt.executeUpdate();
+	    	
+	    	JOptionPane.showMessageDialog(null, "Se ha agregado el contenedor correctamente");
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage());
+		}
+	}
+	
+	
+public ArrayList<Barco> obtenerBarcos(){
+		
+		ArrayList<Barco> barcos = new ArrayList<>();
+		try {
+			Conexion conexion = new Conexion(); 
+			Connection con = conexion.conectar();
+			String query = "SELECT id_barco, nombre, capacidad, destino From barco";
+			 PreparedStatement stmt = con.prepareStatement(query);
+			 ResultSet rs = stmt.executeQuery();
+			 
+			 while (rs.next()) {
+				 int id_barco = rs.getInt("id_barco");
+				 String nombre = rs.getString("nombre");
+				 int capacidad = rs.getInt("capacidad");
+				 String destino = rs.getString("destino");
+				 Barco barco = new Barco(id_barco, nombre, capacidad, destino);
+				 barcos.add(barco);
+				
+			 }
+			
+		} catch (SQLException e) {
+			  JOptionPane.showMessageDialog(null, "Error al obtener productos de la base de datos: " + e.getMessage());
+		} 
+		return barcos;
+	}
+
+public void eliminarBarco(int id_barco) {
+	 try {
+		  Conexion conexion = new Conexion(); 
+		  Connection con = conexion.conectar();
+		  String sql = "DELETE FROM barco WHERE id_barco = ?";
+		  PreparedStatement stmt = con.prepareStatement(sql);
+		  stmt.setInt(1, id_barco);
+		  stmt.executeUpdate();
+		  JOptionPane.showMessageDialog(null, "Se ha eliminado el barco correctamente!");
+	} catch (Exception e) {
+		JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage());
+		e.printStackTrace();
+	}
+}
+
+public void agregarBarco(String nombre, int capacidad) {
+	try {
+		Conexion conexion = new Conexion();
+	    Connection con = conexion.conectar();
+	    
+	    String query = "INSERT INTO barco (nombre, capacidad) VALUES (?, ?)";
+    	PreparedStatement stmt = con.prepareStatement(query);
+    	
+    	stmt.setString(1,nombre);
+    	stmt.setInt(2,capacidad);
+    	stmt.executeUpdate();
+    	
+    	JOptionPane.showMessageDialog(null, "Se ha agregado el barco correctamente");
+	} catch (Exception e) {
+		JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage());
+	}
+}
+
+public void actualizarBarco(int id_barco, String nombre, int capacidad, String destino) {
+    Conexion conexion = new Conexion();
+    Connection con = conexion.conectar();
+
+    try {
+    	String updateQuery = "UPDATE `barco` SET `nombre`=?, `capacidad`=?, `destino`=? WHERE `id_barco` = ?";
+    	PreparedStatement updateStmt = con.prepareStatement(updateQuery);
+
+    	updateStmt.setString(1, nombre);
+    	updateStmt.setInt(2, capacidad);
+    	updateStmt.setString(3, destino);
+    	updateStmt.setInt(4, id_barco);
+
+    	updateStmt.executeUpdate();
+
+
+        JOptionPane.showMessageDialog(null, "Barco actualizado exitosamente.");
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error al actualizar el contenedor en la base de datos: " + e.getMessage());
+        e.printStackTrace();
+    }
+}
 } 

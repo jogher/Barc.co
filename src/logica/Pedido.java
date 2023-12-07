@@ -10,19 +10,17 @@ public class Pedido {
 	private ArrayList<Producto> productos;
 	private int id_contenedor;
 	private Contenedor contenedor;
-
+	private int id_producto;
 	private int id_cliente;
 	
-	public Pedido(int id_pedido, int cant_productos, String estado, String destino, ArrayList<Producto> productos, int id_contenedor, int id_cliente) {
+	public Pedido(int id_pedido, int cant_productos, String estado, String destino, int id_contenedor,int id_producto) {
 		super();
 		this.id_pedido = id_pedido;
 		this.cant_productos = cant_productos;
 		this.estado = estado;
 		this.destino = destino;
 		this.id_contenedor = id_contenedor;
-		this.productos = productos;
-		this.id_cliente = id_cliente;
-		this.productos = new ArrayList<>();
+		this.id_producto = id_producto;
 	}
 	
 	public Pedido() {
@@ -30,14 +28,15 @@ public class Pedido {
 	}
 	
 	
-	public Pedido(int id_pedido, int cant_productos, String estado, String destino, int id_contenedor, int id_producto) {
+	public Pedido(int id_pedido, int cant_productos, String estado, String destino, int id_contenedor, int id_producto, int id_cliente) {
 		super();
 		this.id_pedido = id_pedido;
 		this.cant_productos = cant_productos;
 		this.estado = estado;
 		this.destino = destino;
 		this.id_contenedor = id_contenedor;
-		this.productos = new ArrayList<>();
+		this.setId_producto(id_producto);
+		this.id_cliente = id_cliente;
 	}
 	
 	public Pedido(int id_pedido, Contenedor contenedor, String estado) {
@@ -108,6 +107,14 @@ public class Pedido {
 
 	public void setId_contenedor(int id_contenedor) {
 		this.id_contenedor = id_contenedor;
+	}
+
+	public int getId_producto() {
+		return id_producto;
+	}
+
+	public void setId_producto(int id_producto) {
+		this.id_producto = id_producto;
 	}
 
 
