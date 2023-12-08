@@ -161,4 +161,105 @@ public class PantallaProveedor {
 			}
 		} while (op != 4);
 	}
+	
+	public int getProveedorId() {
+		Conexion conexion = new Conexion();
+		Connection con = conexion.conectar();
+		int id_proveedor = 0;
+		String email = InicioSesion.email;
+		try {
+			  String query = "SELECT id_proveedor FROM proveedor WHERE email = ?";
+	          PreparedStatement stmt = con.prepareStatement(query);
+	          stmt.setString(1, email);
+	          ResultSet rs = stmt.executeQuery();
+	          if (rs.next()) {
+	        	id_proveedor = rs.getInt("id_proveedor"); 
+	          }
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage());
+		}
+		return id_proveedor;
+	}
+	
+	public ArrayList<Producto> obtenerProductosProv(){
+		
+
+		ArrayList<Producto> productos = new ArrayList<>();
+
+	    try {
+	    	Conexion conexion = new Conexion(); 
+			Connection con = conexion.conectar();
+	        String selectQuery = "SELECT id_producto, nombre, tamano, precio, stock FROM producto WHERE id_proveedor = ?";
+	        PreparedStatement stmt = con.prepareStatement(selectQuery);
+	        
+	        stmt.setInt(1, getProveedorId());
+	        ResultSet rs = stmt.executeQuery();
+
+	        while(rs.next()){
+	        	int id_producto = rs.getInt("id_producto");
+	        	String nombre = rs.getString("nombre");
+	        	double tamano = rs.getDouble("tamano");
+	        	double precio = rs.getDouble("precio");
+	        	int stock = rs.getInt("stock");
+	        	
+	        	Producto producto = new Producto(id_producto, nombre, tamano, precio, stock);
+				productos.add(producto);
+	        }
+	           
+	    } catch(SQLException e) {
+	        JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage());
+	    }
+	    return productos;
+	}
+	
+	public void agregarStock(int id_producto, int stockAgregado) {
+		 try {
+			 	Conexion conexion = new Conexion(); 
+				Connection con = conexion.conectar();
+		        String updateQuery = "UPDATE producto SET stock = stock + ? WHERE id_producto = ?";
+		        PreparedStatement updateStmt = con.prepareStatement(updateQuery);
+		        updateStmt.setInt(1, stockAgregado);
+		        updateStmt.setInt(2, id_producto);
+		        int rowsUpdated = updateStmt.executeUpdate();
+		            
+		       JOptionPane.showMessageDialog(null, "Stock agregado correctamente");   
+		    } catch (SQLException e) {
+		        JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage());
+		    }
+	}
+	
+	public void eliminarProducto(int id_producto) {
+		  try {
+			  Conexion conexion = new Conexion(); 
+			  Connection con = conexion.conectar();
+			  String sql = "DELETE FROM producto WHERE id_producto = ?";
+			  PreparedStatement stmt = con.prepareStatement(sql);
+			  stmt.setInt(1, id_producto);
+			  stmt.executeUpdate();
+			  JOptionPane.showMessageDialog(null, "Se ha eliminado el producto correctamente!");
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	public void agregarProducto(String nombre, double tamanio, double precio, int stock) {
+		 try {
+			 Conexion conexion = new Conexion(); 
+			 Connection con = conexion.conectar();
+			 String query = "INSERT INTO producto (nombre, tamano, precio, stock, id_proveedor) VALUES (?, ?, ?, ?, ?)";
+		     PreparedStatement stmt = con.prepareStatement(query);
+		     
+		     stmt.setString(1,nombre);
+		     stmt.setDouble(2,tamanio);
+		     stmt.setDouble(3, precio);
+		     stmt.setInt(4, stock);
+		     stmt.setInt(5, getProveedorId());
+		     stmt.executeUpdate();
+		     
+		     JOptionPane.showMessageDialog(null, "Producto agregado");
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage());
+		}
+	}
 }

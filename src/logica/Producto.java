@@ -40,6 +40,14 @@ public class Producto {
 		this.foto = foto;
 	}
 	
+	public Producto(int id_producto, String nombre, double tamano, double precio, int stock) {
+		super();
+		this.id = id_producto;
+		this.nombre = nombre;
+		this.tamano = tamano;
+		this.precio = precio;
+		this.stock = stock;
+	}
 
 	public String getFoto() {
 		return foto;
