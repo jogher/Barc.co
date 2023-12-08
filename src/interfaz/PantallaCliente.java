@@ -20,7 +20,7 @@ import logica.Pedido;
 
 public class PantallaCliente {
 
-	String email = Main.email;
+	String email = InicioSesion.email;
 	int idCliente;
 	String nombre;
 	String apellido;
