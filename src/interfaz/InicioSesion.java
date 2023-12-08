@@ -118,9 +118,17 @@ public class InicioSesion extends JFrame {
 			        } else if (validador.IniciarSesion(correo, contrasena, "proveedor")) {
 			          Proveedor verificador = new Proveedor();
 			          verificador.Mostrar(correo, contrasena);
+
 			          
 				      MenuProveedor menuproveedor = new MenuProveedor();
 				      InicioSesion.email = correo;
+
+			          //PantallaProveedor pantallaProveedor = new PantallaProveedor();
+			          InicioSesion.email = correo;
+			          //pantallaProveedor.Menu();
+				      MenuProveedor menuproveedor = new MenuProveedor();
+				      
+
 				      menuproveedor.run();
 				      dispose(); 
 			        } else {
